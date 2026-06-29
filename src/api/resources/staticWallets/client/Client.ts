@@ -493,6 +493,89 @@ export class StaticWalletsClient {
     }
 
     /**
+     * @param {SuwardSDK.GetV1StaticWalletsStaticWalletIdDepositsDepositIdRequest} request
+     * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link SuwardSDK.UnauthorizedError}
+     * @throws {@link SuwardSDK.NotFoundError}
+     *
+     * @example
+     *     await client.staticWallets.getStaticWalletDeposit({
+     *         staticWalletId: "staticWalletId",
+     *         depositId: "depositId"
+     *     })
+     */
+    public getStaticWalletDeposit(
+        request: SuwardSDK.GetV1StaticWalletsStaticWalletIdDepositsDepositIdRequest,
+        requestOptions?: StaticWalletsClient.RequestOptions,
+    ): core.HttpResponsePromise<SuwardSDK.CryptopayStaticDepositResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getStaticWalletDeposit(request, requestOptions));
+    }
+
+    private async __getStaticWalletDeposit(
+        request: SuwardSDK.GetV1StaticWalletsStaticWalletIdDepositsDepositIdRequest,
+        requestOptions?: StaticWalletsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<SuwardSDK.CryptopayStaticDepositResponse>> {
+        const { staticWalletId, depositId } = request;
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.SuwardSDKEnvironment.Default,
+                `v1/static-wallets/${core.url.encodePathParam(staticWalletId)}/deposits/${core.url.encodePathParam(depositId)}`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as SuwardSDK.CryptopayStaticDepositResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new SuwardSDK.UnauthorizedError(
+                        _response.error.body as SuwardSDK.ControllerErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new SuwardSDK.NotFoundError(
+                        _response.error.body as SuwardSDK.ControllerErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.SuwardSDKError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/v1/static-wallets/{staticWalletId}/deposits/{depositId}",
+        );
+    }
+
+    /**
      * Drive a synthetic deposit through its lifecycle on a test wallet (no on-chain activity, no balance credit). Test wallets only.
      *
      * @param {SuwardSDK.CryptopaySimulateStaticDepositRequest} request

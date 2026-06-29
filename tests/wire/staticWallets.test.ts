@@ -279,6 +279,7 @@ describe("StaticWalletsClient", () => {
                     confirmedAt: 1,
                     createdAt: 1,
                     detectedAt: 1,
+                    externalId: "externalId",
                     fee: "fee",
                     id: "id",
                     invalidatedAt: 1,
@@ -330,6 +331,91 @@ describe("StaticWalletsClient", () => {
         }).rejects.toThrow(SuwardSDK.NotFoundError);
     });
 
+    test("getStaticWalletDeposit (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            acceptedAt: 1,
+            address: "address",
+            amount: "amount",
+            asset: "USDT_ETHEREUM",
+            confirmedAt: 1,
+            createdAt: 1,
+            detectedAt: 1,
+            externalId: "externalId",
+            fee: "fee",
+            id: "id",
+            invalidatedAt: 1,
+            netAmount: "netAmount",
+            networkFee: "networkFee",
+            projectId: "projectId",
+            staticWalletId: "staticWalletId",
+            status: "detected",
+            transferIndex: "transferIndex",
+            txHash: "txHash",
+            updatedAt: 1,
+        };
+
+        server
+            .mockEndpoint()
+            .get("/v1/static-wallets/staticWalletId/deposits/depositId")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.staticWallets.getStaticWalletDeposit({
+            staticWalletId: "staticWalletId",
+            depositId: "depositId",
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("getStaticWalletDeposit (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/v1/static-wallets/staticWalletId/deposits/depositId")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.staticWallets.getStaticWalletDeposit({
+                staticWalletId: "staticWalletId",
+                depositId: "depositId",
+            });
+        }).rejects.toThrow(SuwardSDK.UnauthorizedError);
+    });
+
+    test("getStaticWalletDeposit (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/v1/static-wallets/staticWalletId/deposits/depositId")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.staticWallets.getStaticWalletDeposit({
+                staticWalletId: "staticWalletId",
+                depositId: "depositId",
+            });
+        }).rejects.toThrow(SuwardSDK.NotFoundError);
+    });
+
     test("simulateStaticWalletDeposit (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
@@ -342,6 +428,7 @@ describe("StaticWalletsClient", () => {
             confirmedAt: 1,
             createdAt: 1,
             detectedAt: 1,
+            externalId: "externalId",
             fee: "fee",
             id: "id",
             invalidatedAt: 1,

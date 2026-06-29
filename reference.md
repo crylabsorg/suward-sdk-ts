@@ -704,6 +704,58 @@ await client.staticWallets.listStaticWalletDeposits({
 </dl>
 </details>
 
+<details><summary><code>client.staticWallets.<a href="/src/api/resources/staticWallets/client/Client.ts">getStaticWalletDeposit</a>({ ...params }) -> SuwardSDK.CryptopayStaticDepositResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.staticWallets.getStaticWalletDeposit({
+    staticWalletId: "staticWalletId",
+    depositId: "depositId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `SuwardSDK.GetV1StaticWalletsStaticWalletIdDepositsDepositIdRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `StaticWalletsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.staticWallets.<a href="/src/api/resources/staticWallets/client/Client.ts">simulateStaticWalletDeposit</a>({ ...params }) -> SuwardSDK.CryptopayStaticDepositResponse</code></summary>
 <dl>
 <dd>

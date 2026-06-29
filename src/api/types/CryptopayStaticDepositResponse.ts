@@ -10,6 +10,8 @@ export interface CryptopayStaticDepositResponse {
     confirmedAt?: number | undefined;
     createdAt?: number | undefined;
     detectedAt?: number | undefined;
+    /** ExternalID is the static wallet's externalId, denormalized onto the deposit. */
+    externalId?: string | undefined;
     fee?: string | undefined;
     id?: string | undefined;
     invalidatedAt?: number | undefined;

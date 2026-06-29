@@ -1,0 +1,12 @@
+{
+    "cliVersion": "5.55.2",
+    "generatorName": "fernapi/fern-typescript-sdk",
+    "generatorVersion": "3.73.4",
+    "generatorConfig": {
+        "namespaceExport": "SuwardSDK"
+    },
+    "originGitCommit": "6c5d409e0b085452b79a92fb84e0c78bd5cedf42",
+    "originGitCommitIsDirty": false,
+    "invokedBy": "manual",
+    "sdkVersion": "0.0.20"
+}

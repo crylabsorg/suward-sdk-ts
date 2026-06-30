@@ -3,7 +3,7 @@
 import type * as SuwardSDK from "../index.js";
 
 /**
- * Webhook body for a static-wallet deposit transition. Signed over the raw body with the project's Ed25519 key; verify with project.webhookPublicKey. `createdAt` is the signed, trusted timestamp; `staticDeposit` is the full deposit resource.
+ * Webhook body for a static-wallet deposit transition. Signed over the raw body with the project's Ed25519 key; verify with project.webhookPublicKey. `createdAt` is the signed, trusted timestamp; `staticDeposit` is the full deposit resource. Obtain `webhookPublicKey` from your project settings in the Suward dashboard.
  */
 export interface WebhookStaticDepositEvent {
     type: WebhookStaticDepositEvent.Type;

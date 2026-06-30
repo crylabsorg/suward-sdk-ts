@@ -37,6 +37,7 @@ describe("PaymentsClient", () => {
                     underpaymentTolerance: "underpaymentTolerance",
                     updatedAt: 1,
                     webhookUrl: "webhookUrl",
+                    paymentPageUrl: "paymentPageUrl",
                 },
             ],
             lastId: "lastId",
@@ -117,6 +118,7 @@ describe("PaymentsClient", () => {
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
+            paymentPageUrl: "paymentPageUrl",
         };
 
         server
@@ -222,6 +224,7 @@ describe("PaymentsClient", () => {
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
+            paymentPageUrl: "paymentPageUrl",
         };
 
         server
@@ -279,6 +282,7 @@ describe("PaymentsClient", () => {
             subStatus: "created",
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
+            paymentPageUrl: "paymentPageUrl",
         };
 
         server
@@ -346,6 +350,7 @@ describe("PaymentsClient", () => {
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
+            paymentPageUrl: "paymentPageUrl",
         };
 
         server
@@ -434,6 +439,7 @@ describe("PaymentsClient", () => {
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
+            paymentPageUrl: "paymentPageUrl",
         };
 
         server
@@ -513,6 +519,103 @@ describe("PaymentsClient", () => {
         await expect(async () => {
             return await client.payments.simulatePayment({
                 paymentId: "paymentId",
+            });
+        }).rejects.toThrow(SuwardSDK.InternalServerError);
+    });
+
+    test("quotePaymentFees (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { asset: "USDT_ETHEREUM", amount: "amount" };
+        const rawResponseBody = {
+            asset: "USDT_ETHEREUM",
+            amount: "amount",
+            fee: "fee",
+            networkFee: "networkFee",
+            netAmount: "netAmount",
+        };
+
+        server
+            .mockEndpoint()
+            .post("/v1/payments/quote")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.payments.quotePaymentFees({
+            asset: "USDT_ETHEREUM",
+            amount: "amount",
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("quotePaymentFees (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { asset: "USDT_ETHEREUM", amount: "amount" };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/v1/payments/quote")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(400)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.payments.quotePaymentFees({
+                asset: "USDT_ETHEREUM",
+                amount: "amount",
+            });
+        }).rejects.toThrow(SuwardSDK.BadRequestError);
+    });
+
+    test("quotePaymentFees (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { asset: "USDT_ETHEREUM", amount: "amount" };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/v1/payments/quote")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.payments.quotePaymentFees({
+                asset: "USDT_ETHEREUM",
+                amount: "amount",
+            });
+        }).rejects.toThrow(SuwardSDK.UnauthorizedError);
+    });
+
+    test("quotePaymentFees (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { asset: "USDT_ETHEREUM", amount: "amount" };
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .post("/v1/payments/quote")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.payments.quotePaymentFees({
+                asset: "USDT_ETHEREUM",
+                amount: "amount",
             });
         }).rejects.toThrow(SuwardSDK.InternalServerError);
     });

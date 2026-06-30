@@ -1,5 +1,7 @@
 export * from "./ControllerErrorResponse.js";
 export * from "./CryptopayAssetId.js";
+export * from "./CryptopayAssetResponse.js";
+export * from "./CryptopayBlockchainResponse.js";
 export * from "./CryptopayListPaymentsResponse.js";
 export * from "./CryptopayListStaticDepositsResponse.js";
 export * from "./CryptopayListStaticWalletsResponse.js";
@@ -8,6 +10,7 @@ export * from "./CryptopayPaymentStatusEnum.js";
 export * from "./CryptopayPaymentSubStatusEnum.js";
 export * from "./CryptopayPublicPaymentResponse.js";
 export * from "./CryptopayPublicRedirect.js";
+export * from "./CryptopayQuotePaymentResponse.js";
 export * from "./CryptopayRedirectConfigDto.js";
 export * from "./CryptopayStaticDepositResponse.js";
 export * from "./CryptopayStaticWalletResponse.js";

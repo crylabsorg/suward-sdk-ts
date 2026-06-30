@@ -1,4 +1,5 @@
 export type { CryptopayCreatePaymentRequest } from "./CryptopayCreatePaymentRequest.js";
+export type { CryptopayQuotePaymentRequest } from "./CryptopayQuotePaymentRequest.js";
 export type { CryptopaySimulatePaymentRequest } from "./CryptopaySimulatePaymentRequest.js";
 export type { GetV1PaymentsPaymentIdRequest } from "./GetV1PaymentsPaymentIdRequest.js";
 export type { GetV1PaymentsRequest } from "./GetV1PaymentsRequest.js";

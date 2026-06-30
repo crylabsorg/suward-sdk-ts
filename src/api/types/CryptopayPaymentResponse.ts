@@ -7,17 +7,22 @@ export interface CryptopayPaymentResponse {
     activatedAt?: number | undefined;
     activationFlowSeconds?: number | undefined;
     address?: string | undefined;
+    /** Integer string in the asset's smallest unit. */
     amount?: string | undefined;
+    /** Integer string in the asset's smallest unit. */
     amountConfirmed?: string | undefined;
+    /** Integer string in the asset's smallest unit. */
     amountReceived?: string | undefined;
     asset?: SuwardSDK.CryptopayAssetId | undefined;
     createdAt?: number | undefined;
     expiresAt?: number | undefined;
     externalId?: string | undefined;
+    /** Platform fee: 0.4% of the amount, minimum $1 equivalent. Integer string in the asset's smallest unit. */
     fee?: string | undefined;
     id?: string | undefined;
     isTest?: boolean | undefined;
     metadata?: Record<string, unknown> | undefined;
+    /** Estimated on-chain (gas) cost, deducted from the received amount. Integer string in the asset's smallest unit. */
     networkFee?: string | undefined;
     paymentWindowSeconds?: number | undefined;
     projectId?: string | undefined;
@@ -25,7 +30,10 @@ export interface CryptopayPaymentResponse {
     status?: SuwardSDK.CryptopayPaymentStatusEnum | undefined;
     subStatus?: SuwardSDK.CryptopayPaymentSubStatusEnum | undefined;
     transactions?: SuwardSDK.CryptopayTransactionResponse[] | undefined;
+    /** Integer string in the asset's smallest unit. */
     underpaymentTolerance?: string | undefined;
     updatedAt?: number | undefined;
     webhookUrl?: string | undefined;
+    /** Absolute URL of the Suward-hosted checkout page where the customer pays this payment. */
+    paymentPageUrl?: string | undefined;
 }

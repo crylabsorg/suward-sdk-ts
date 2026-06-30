@@ -3,7 +3,7 @@
 import type * as SuwardSDK from "../index.js";
 
 /**
- * Webhook body for a payment lifecycle transition. Signed over the raw body with the project's Ed25519 key; verify with project.webhookPublicKey. `createdAt` is the signed, trusted timestamp; `payment` is the full payment resource (the same shape as the merchant GET /v1/payments/{paymentId} view).
+ * Webhook body for a payment lifecycle transition. Signed over the raw body with the project's Ed25519 key; verify with project.webhookPublicKey. `createdAt` is the signed, trusted timestamp; `payment` is the full payment resource (the same shape as the merchant GET /v1/payments/{paymentId} view). Obtain `webhookPublicKey` from your project settings in the Suward dashboard.
  */
 export interface WebhookPaymentEvent {
     type: WebhookPaymentEvent.Type;

@@ -387,6 +387,72 @@ await client.payments.simulatePayment({
 </dl>
 </details>
 
+<details><summary><code>client.payments.<a href="/src/api/resources/payments/client/Client.ts">quotePaymentFees</a>({ ...params }) -> SuwardSDK.CryptopayQuotePaymentResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the platform fee, estimated network fee, and net amount for a payment of `amount` in `asset`, without creating anything. All monetary fields are integer strings in the asset's smallest unit.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.payments.quotePaymentFees({
+    asset: "USDT_ETHEREUM",
+    amount: "amount"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `SuwardSDK.CryptopayQuotePaymentRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PaymentsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## StaticWallets
 <details><summary><code>client.staticWallets.<a href="/src/api/resources/staticWallets/client/Client.ts">listStaticWallets</a>({ ...params }) -> SuwardSDK.CryptopayListStaticWalletsResponse</code></summary>
 <dl>
@@ -810,6 +876,117 @@ await client.staticWallets.simulateStaticWalletDeposit({
 <dd>
 
 **requestOptions:** `StaticWalletsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Assets
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">listAcceptedAssets</a>() -> SuwardSDK.GetV1AssetsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns all assets accepted by the Suward gateway. No authentication required.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.assets.listAcceptedAssets();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `AssetsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">listSupportedBlockchains</a>() -> SuwardSDK.CryptopayBlockchainResponse[]</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns all supported blockchains (informational). No authentication required.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.assets.listSupportedBlockchains();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `AssetsClient.RequestOptions` 
     
 </dd>
 </dl>

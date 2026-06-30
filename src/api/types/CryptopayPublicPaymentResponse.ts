@@ -6,7 +6,9 @@ export interface CryptopayPublicPaymentResponse {
     activatedAt?: number | undefined;
     activationFlowSeconds?: number | undefined;
     address?: string | undefined;
+    /** Integer string in the asset's smallest unit. */
     amount?: string | undefined;
+    /** Integer string in the asset's smallest unit. */
     amountReceived?: string | undefined;
     asset?: SuwardSDK.CryptopayAssetId | undefined;
     createdAt?: number | undefined;
@@ -16,6 +18,9 @@ export interface CryptopayPublicPaymentResponse {
     redirect?: SuwardSDK.CryptopayPublicRedirect | undefined;
     status?: SuwardSDK.CryptopayPaymentStatusEnum | undefined;
     subStatus?: SuwardSDK.CryptopayPaymentSubStatusEnum | undefined;
+    /** Integer string in the asset's smallest unit. */
     underpaymentTolerance?: string | undefined;
     updatedAt?: number | undefined;
+    /** Absolute URL of the Suward-hosted checkout page where the customer pays this payment. */
+    paymentPageUrl?: string | undefined;
 }

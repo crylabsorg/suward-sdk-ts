@@ -513,4 +513,92 @@ export class PaymentsClient {
             "/v1/payments/{paymentId}/simulate",
         );
     }
+
+    /**
+     * Returns the platform fee, estimated network fee, and net amount for a payment of `amount` in `asset`, without creating anything. All monetary fields are integer strings in the asset's smallest unit.
+     *
+     * @param {SuwardSDK.CryptopayQuotePaymentRequest} request
+     * @param {PaymentsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link SuwardSDK.BadRequestError}
+     * @throws {@link SuwardSDK.UnauthorizedError}
+     * @throws {@link SuwardSDK.InternalServerError}
+     *
+     * @example
+     *     await client.payments.quotePaymentFees({
+     *         asset: "USDT_ETHEREUM",
+     *         amount: "amount"
+     *     })
+     */
+    public quotePaymentFees(
+        request: SuwardSDK.CryptopayQuotePaymentRequest,
+        requestOptions?: PaymentsClient.RequestOptions,
+    ): core.HttpResponsePromise<SuwardSDK.CryptopayQuotePaymentResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__quotePaymentFees(request, requestOptions));
+    }
+
+    private async __quotePaymentFees(
+        request: SuwardSDK.CryptopayQuotePaymentRequest,
+        requestOptions?: PaymentsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<SuwardSDK.CryptopayQuotePaymentResponse>> {
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.SuwardSDKEnvironment.Default,
+                "v1/payments/quote",
+            ),
+            method: "POST",
+            headers: _headers,
+            contentType: "application/json",
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            requestType: "json",
+            body: request,
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as SuwardSDK.CryptopayQuotePaymentResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 400:
+                    throw new SuwardSDK.BadRequestError(
+                        _response.error.body as SuwardSDK.ControllerErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 401:
+                    throw new SuwardSDK.UnauthorizedError(
+                        _response.error.body as SuwardSDK.ControllerErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new SuwardSDK.InternalServerError(
+                        _response.error.body as SuwardSDK.ControllerErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.SuwardSDKError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/v1/payments/quote");
+    }
 }

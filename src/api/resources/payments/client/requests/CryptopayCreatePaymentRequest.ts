@@ -8,8 +8,13 @@ import type * as SuwardSDK from "../../../../index.js";
  */
 export interface CryptopayCreatePaymentRequest {
     activationFlowSeconds?: number;
+    /** Merchant base amount, integer string in the asset's smallest unit. When a fee payer is on_top the customer is charged more than this (gross); when absorbed (default) the fee is deducted from the merchant's proceeds. */
     amount?: string;
     asset?: SuwardSDK.CryptopayAssetId;
+    /** Who bears the network (gas) fee. Default absorbed. */
+    networkFeePayer?: SuwardSDK.CryptopayFeePayer;
+    /** Who bears the platform (service) fee. Default absorbed. */
+    serviceFeePayer?: SuwardSDK.CryptopayFeePayer;
     externalId?: string;
     isTest?: boolean;
     metadata?: Record<string, unknown>;

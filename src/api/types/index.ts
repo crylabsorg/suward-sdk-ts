@@ -2,6 +2,7 @@ export * from "./ControllerErrorResponse.js";
 export * from "./CryptopayAssetId.js";
 export * from "./CryptopayAssetResponse.js";
 export * from "./CryptopayBlockchainResponse.js";
+export * from "./CryptopayFeePayer.js";
 export * from "./CryptopayListPaymentsResponse.js";
 export * from "./CryptopayListStaticDepositsResponse.js";
 export * from "./CryptopayListStaticWalletsResponse.js";

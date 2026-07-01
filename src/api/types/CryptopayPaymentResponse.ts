@@ -24,6 +24,12 @@ export interface CryptopayPaymentResponse {
     metadata?: Record<string, unknown> | undefined;
     /** Estimated on-chain (gas) cost, deducted from the received amount. Integer string in the asset's smallest unit. */
     networkFee?: string | undefined;
+    /** USD price of the asset locked at creation, decimal string. Fees are computed from this price at settlement, so the merchant's net is deterministic. */
+    quotedPrice?: string | undefined;
+    /** Who bears the network (gas) fee, echoed from creation. */
+    networkFeePayer?: SuwardSDK.CryptopayFeePayer | undefined;
+    /** Who bears the platform (service) fee, echoed from creation. */
+    serviceFeePayer?: SuwardSDK.CryptopayFeePayer | undefined;
     paymentWindowSeconds?: number | undefined;
     projectId?: string | undefined;
     redirectConfig?: SuwardSDK.CryptopayRedirectConfigDto | undefined;

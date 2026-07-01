@@ -12,6 +12,10 @@ import type * as SuwardSDK from "../../../../index.js";
 export interface CryptopayQuotePaymentRequest {
     /** Asset identifier (see GET /v1/assets for the live list). */
     asset: SuwardSDK.CryptopayAssetId;
-    /** Gross amount, integer string in the asset's smallest unit. Example: "5000000" = 5 USDT. */
+    /** Merchant base amount, integer string in the asset's smallest unit. Example: "5000000" = 5 USDT. The response returns the derived gross (what the customer pays) and netAmount (what the merchant receives). */
     amount: string;
+    /** Who bears the network (gas) fee. Default absorbed. */
+    networkFeePayer?: SuwardSDK.CryptopayFeePayer;
+    /** Who bears the platform (service) fee. Default absorbed. */
+    serviceFeePayer?: SuwardSDK.CryptopayFeePayer;
 }

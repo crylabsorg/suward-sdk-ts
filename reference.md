@@ -334,7 +334,7 @@ await client.payments.cancelPayment({
 <dl>
 <dd>
 
-Simulate payment status change (test mode only)
+Simulate a payment status transition. Available for test-coin assets only.
 </dd>
 </dl>
 </dd>
@@ -834,7 +834,7 @@ await client.staticWallets.getStaticWalletDeposit({
 <dl>
 <dd>
 
-Drive a synthetic deposit through its lifecycle on a test wallet (no on-chain activity, no balance credit). Test wallets only.
+Drive a synthetic deposit through its lifecycle (no on-chain activity, no balance credit). Available for test-coin assets only.
 </dd>
 </dl>
 </dd>

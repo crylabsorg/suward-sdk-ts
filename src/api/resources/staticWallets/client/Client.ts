@@ -576,7 +576,7 @@ export class StaticWalletsClient {
     }
 
     /**
-     * Drive a synthetic deposit through its lifecycle on a test wallet (no on-chain activity, no balance credit). Test wallets only.
+     * Drive a synthetic deposit through its lifecycle (no on-chain activity, no balance credit). Available for test-coin assets only.
      *
      * @param {SuwardSDK.CryptopaySimulateStaticDepositRequest} request
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.

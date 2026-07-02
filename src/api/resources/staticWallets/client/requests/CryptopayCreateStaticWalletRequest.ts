@@ -9,7 +9,6 @@ import type * as SuwardSDK from "../../../../index.js";
 export interface CryptopayCreateStaticWalletRequest {
     allowedAssets?: SuwardSDK.CryptopayAssetId[];
     externalId?: string;
-    isTest?: boolean;
     metadata?: Record<string, unknown>;
     webhookUrl?: string;
 }

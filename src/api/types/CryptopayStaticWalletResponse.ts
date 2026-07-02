@@ -8,7 +8,6 @@ export interface CryptopayStaticWalletResponse {
     createdAt?: number | undefined;
     externalId?: string | undefined;
     id?: string | undefined;
-    isTest?: boolean | undefined;
     metadata?: Record<string, unknown> | undefined;
     projectId?: string | undefined;
     updatedAt?: number | undefined;

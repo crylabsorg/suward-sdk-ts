@@ -16,7 +16,6 @@ export interface CryptopayCreatePaymentRequest {
     /** Who bears the platform (service) fee. Default absorbed. */
     serviceFeePayer?: SuwardSDK.CryptopayFeePayer;
     externalId?: string;
-    isTest?: boolean;
     metadata?: Record<string, unknown>;
     paymentWindowSeconds?: number;
     redirectConfig?: SuwardSDK.CryptopayRedirectConfigDto;

@@ -425,7 +425,7 @@ export class PaymentsClient {
     }
 
     /**
-     * Simulate payment status change (test mode only)
+     * Simulate a payment status transition. Available for test-coin assets only.
      *
      * @param {SuwardSDK.CryptopaySimulatePaymentRequest} request
      * @param {PaymentsClient.RequestOptions} requestOptions - Request-specific configuration.

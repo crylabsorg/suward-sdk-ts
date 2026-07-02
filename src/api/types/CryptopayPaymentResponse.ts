@@ -20,7 +20,6 @@ export interface CryptopayPaymentResponse {
     /** Platform fee: 0.4% of the amount, minimum $1 equivalent. Integer string in the asset's smallest unit. */
     fee?: string | undefined;
     id?: string | undefined;
-    isTest?: boolean | undefined;
     metadata?: Record<string, unknown> | undefined;
     /** Estimated on-chain (gas) cost, deducted from the received amount. Integer string in the asset's smallest unit. */
     networkFee?: string | undefined;

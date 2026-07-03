@@ -12,7 +12,7 @@ export interface CryptopayQuotePaymentResponse {
     networkFee?: string | undefined;
     /** Amount the merchant receives after all fees. Integer string in the asset's smallest unit. */
     netAmount?: string | undefined;
-    /** Amount the customer pays: base plus any on_top fees. Integer string in the asset's smallest unit. */
+    /** Amount the customer pays: base plus any customer-paid fees. Integer string in the asset's smallest unit. */
     gross?: string | undefined;
     /** USD price used for this quote, decimal string. Not locked — the binding price is captured when the payment is created. */
     quotedPrice?: string | undefined;

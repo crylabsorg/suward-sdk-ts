@@ -14,8 +14,8 @@ export interface CryptopayQuotePaymentRequest {
     asset: SuwardSDK.CryptopayAssetId;
     /** Merchant base amount, integer string in the asset's smallest unit. Example: "5000000" = 5 USDT. The response returns the derived gross (what the customer pays) and netAmount (what the merchant receives). */
     amount: string;
-    /** Who bears the network (gas) fee. Default absorbed. */
+    /** Who bears the network (gas) fee. Default merchant. */
     networkFeePayer?: SuwardSDK.CryptopayFeePayer;
-    /** Who bears the platform (service) fee. Default absorbed. */
+    /** Who bears the platform (service) fee. Default merchant. */
     serviceFeePayer?: SuwardSDK.CryptopayFeePayer;
 }

@@ -14,6 +14,7 @@ export interface CryptopayPaymentResponse {
     /** Integer string in the asset's smallest unit. */
     amountReceived?: string | undefined;
     asset?: SuwardSDK.CryptopayAssetId | undefined;
+    confirmedAt?: number | undefined;
     createdAt?: number | undefined;
     expiresAt?: number | undefined;
     externalId?: string | undefined;

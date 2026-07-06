@@ -453,10 +453,89 @@ await client.payments.quotePaymentFees({
 </dl>
 </details>
 
+<details><summary><code>client.payments.<a href="/src/api/resources/payments/client/Client.ts">listPaymentTransactions</a>({ ...params }) -> SuwardSDK.CryptopaywireTransactionList</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of the on-chain transactions detected for a payment.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.payments.listPaymentTransactions({
+    paymentId: "paymentId"
+});
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `SuwardSDK.GetV1PaymentsPaymentIdTransactionsRequest` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PaymentsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## StaticWallets
 <details><summary><code>client.staticWallets.<a href="/src/api/resources/staticWallets/client/Client.ts">listStaticWallets</a>({ ...params }) -> SuwardSDK.CryptopayListStaticWalletsResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+List the project's static wallets, newest first. Paginated via limit and lastId.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -570,6 +649,20 @@ await client.staticWallets.createStaticWallet();
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch a single static wallet by its id.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -620,6 +713,20 @@ await client.staticWallets.getStaticWallet({
 <details><summary><code>client.staticWallets.<a href="/src/api/resources/staticWallets/client/Client.ts">deleteStaticWallet</a>({ ...params }) -> Record&lt;string, boolean&gt;</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a static wallet. Its address stops being monitored and can no longer receive new deposits; previously recorded deposits are unaffected.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 
@@ -672,6 +779,20 @@ await client.staticWallets.deleteStaticWallet({
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Update a static wallet's accepted-asset allow-list, metadata, or webhook URL. Only the fields present in the body are changed.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -723,6 +844,20 @@ await client.staticWallets.updateStaticWallet({
 <dl>
 <dd>
 
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Paginated list of the deposits received by a static wallet, newest first.
+</dd>
+</dl>
+</dd>
+</dl>
+
 #### 🔌 Usage
 
 <dl>
@@ -773,6 +908,20 @@ await client.staticWallets.listStaticWalletDeposits({
 <details><summary><code>client.staticWallets.<a href="/src/api/resources/staticWallets/client/Client.ts">getStaticWalletDeposit</a>({ ...params }) -> SuwardSDK.CryptopayStaticDepositResponse</code></summary>
 <dl>
 <dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch a single static-wallet deposit by its id.
+</dd>
+</dl>
+</dd>
+</dl>
 
 #### 🔌 Usage
 

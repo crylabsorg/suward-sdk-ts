@@ -6,14 +6,18 @@ import type * as SuwardSDK from "../index.js";
  * Webhook body for a static-wallet deposit transition. Signed over the raw body with the project's Ed25519 key; verify with project.webhookPublicKey. `createdAt` is the signed, trusted timestamp; `staticDeposit` is the full deposit resource. Obtain `webhookPublicKey` from your project settings in the Suward dashboard.
  */
 export interface WebhookStaticDepositEvent {
+    /** Event type. static_deposit.accepted: the deposit reached safe confirmations and was credited (non-final). static_deposit.success: the deposit finalized (terminal). */
     type: WebhookStaticDepositEvent.Type;
+    /** Unique identifier of this event. The same event may be redelivered on retry; use eventId to deduplicate. */
     eventId: string;
     /** Event creation time, unix milliseconds. */
     createdAt: number;
+    /** Full static-wallet deposit resource at the time of the event. */
     staticDeposit: SuwardSDK.CryptopayStaticDepositResponse;
 }
 
 export namespace WebhookStaticDepositEvent {
+    /** Event type. static_deposit.accepted: the deposit reached safe confirmations and was credited (non-final). static_deposit.success: the deposit finalized (terminal). */
     export const Type = {
         StaticDepositAccepted: "static_deposit.accepted",
         StaticDepositSuccess: "static_deposit.success",

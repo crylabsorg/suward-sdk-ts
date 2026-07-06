@@ -11,7 +11,10 @@ import type * as SuwardSDK from "../../../../index.js";
 export interface CryptopayUpdateStaticWalletRequest {
     /** Static wallet ID */
     staticWalletId: string;
+    /** New accepted-asset allow-list, as asset id-strings (see GET /v1/assets). When empty or omitted the current list is left unchanged. */
     allowedAssets?: SuwardSDK.CryptopayAssetId[];
+    /** Replacement key/value metadata for the static wallet. */
     metadata?: Record<string, unknown>;
+    /** Replacement webhook URL for this wallet's deposit events. */
     webhookUrl?: string;
 }

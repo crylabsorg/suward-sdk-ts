@@ -7,8 +7,12 @@ import type * as SuwardSDK from "../../../../index.js";
  *     {}
  */
 export interface CryptopayCreateStaticWalletRequest {
+    /** Accepted-asset allow-list, as asset id-strings (see GET /v1/assets), e.g. ["USDT_ARBITRUM"]. Deposits of assets not on this list are ignored (status "ignored") and not credited. */
     allowedAssets?: SuwardSDK.CryptopayAssetId[];
+    /** Your own identifier for this static wallet. Echoed back on the wallet and denormalized onto each of its deposits. Optional. */
     externalId?: string;
+    /** Arbitrary JSON key/value data to attach to the static wallet. Stored and echoed back unchanged. */
     metadata?: Record<string, unknown>;
+    /** Webhook URL to receive this wallet's deposit events. Optional; falls back to the project default webhook when omitted. */
     webhookUrl?: string;
 }

@@ -3,13 +3,22 @@
 import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayStaticWalletResponse {
+    /** Reusable on-chain deposit address of this static wallet. Customers may send accepted assets to it repeatedly; each incoming transfer becomes a deposit. */
     address?: string | undefined;
+    /** Accepted-asset allow-list, as asset id-strings (see GET /v1/assets). Deposits of assets outside this list are ignored and not credited. */
     allowedAssets?: SuwardSDK.CryptopayAssetId[] | undefined;
+    /** Unix-milliseconds timestamp when the static wallet was created. */
     createdAt?: number | undefined;
+    /** Your own identifier for this static wallet, echoed from creation. Null when none was provided. */
     externalId?: string | undefined;
+    /** Unique Suward identifier of the static wallet. */
     id?: string | undefined;
+    /** Arbitrary key/value data attached by the merchant, echoed back unchanged. */
     metadata?: Record<string, unknown> | undefined;
+    /** Identifier of the project that owns this static wallet. */
     projectId?: string | undefined;
+    /** Unix-milliseconds timestamp when the static wallet was last updated. */
     updatedAt?: number | undefined;
+    /** Webhook URL that receives this wallet's deposit events. Null when the project default webhook is used. */
     webhookUrl?: string | undefined;
 }

@@ -16,5 +16,6 @@ export * from "./CryptopayRedirectConfigDto.js";
 export * from "./CryptopayStaticDepositResponse.js";
 export * from "./CryptopayStaticWalletResponse.js";
 export * from "./CryptopayTransactionResponse.js";
+export * from "./CryptopaywireTransactionList.js";
 export * from "./WebhookPaymentEvent.js";
 export * from "./WebhookStaticDepositEvent.js";

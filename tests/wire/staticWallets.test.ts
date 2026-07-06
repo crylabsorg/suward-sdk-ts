@@ -24,7 +24,6 @@ describe("StaticWalletsClient", () => {
                     webhookUrl: "webhookUrl",
                 },
             ],
-            lastId: "lastId",
         };
 
         server.mockEndpoint().get("/v1/static-wallets").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -289,7 +288,6 @@ describe("StaticWalletsClient", () => {
                     updatedAt: 1,
                 },
             ],
-            lastId: "lastId",
         };
 
         server

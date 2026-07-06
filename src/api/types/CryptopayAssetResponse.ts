@@ -3,6 +3,7 @@
 import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayAssetResponse {
+    /** Asset id-string used everywhere else in the API, e.g. USDT_ARBITRUM. */
     id?: SuwardSDK.CryptopayAssetId | undefined;
     /** Internal blockchain ID (corresponds to GET /v1/blockchains[].id). */
     blockchainId?: number | undefined;

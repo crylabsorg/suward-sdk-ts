@@ -36,14 +36,12 @@ describe("PaymentsClient", () => {
                     projectId: "projectId",
                     status: "pending",
                     subStatus: "created",
-                    transactions: [{}],
                     underpaymentTolerance: "underpaymentTolerance",
                     updatedAt: 1,
                     webhookUrl: "webhookUrl",
                     paymentPageUrl: "paymentPageUrl",
                 },
             ],
-            lastId: "lastId",
         };
 
         server.mockEndpoint().get("/v1/payments").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
@@ -120,7 +118,7 @@ describe("PaymentsClient", () => {
             redirectConfig: { data: "data", params: ["id"], url: "url" },
             status: "pending",
             subStatus: "created",
-            transactions: [{ acceptedAt: 1, amount: "amount", detectedAt: 1, txHash: "txHash" }],
+            transactions: { hasMore: true, items: [{}] },
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
@@ -229,7 +227,7 @@ describe("PaymentsClient", () => {
             redirectConfig: { data: "data", params: ["id"], url: "url" },
             status: "pending",
             subStatus: "created",
-            transactions: [{ acceptedAt: 1, amount: "amount", detectedAt: 1, txHash: "txHash" }],
+            transactions: { hasMore: true, items: [{}] },
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
@@ -358,7 +356,7 @@ describe("PaymentsClient", () => {
             redirectConfig: { data: "data", params: ["id"], url: "url" },
             status: "pending",
             subStatus: "created",
-            transactions: [{ acceptedAt: 1, amount: "amount", detectedAt: 1, txHash: "txHash" }],
+            transactions: { hasMore: true, items: [{}] },
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
@@ -450,7 +448,7 @@ describe("PaymentsClient", () => {
             redirectConfig: { data: "data", params: ["id"], url: "url" },
             status: "pending",
             subStatus: "created",
-            transactions: [{ acceptedAt: 1, amount: "amount", detectedAt: 1, txHash: "txHash" }],
+            transactions: { hasMore: true, items: [{}] },
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
@@ -633,6 +631,92 @@ describe("PaymentsClient", () => {
             return await client.payments.quotePaymentFees({
                 asset: "USDT_ETHEREUM",
                 amount: "amount",
+            });
+        }).rejects.toThrow(SuwardSDK.InternalServerError);
+    });
+
+    test("listPaymentTransactions (1)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            hasMore: true,
+            items: [{ acceptedAt: 1, amount: "amount", detectedAt: 1, txHash: "txHash" }],
+        };
+
+        server
+            .mockEndpoint()
+            .get("/v1/payments/paymentId/transactions")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.payments.listPaymentTransactions({
+            paymentId: "paymentId",
+        });
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("listPaymentTransactions (2)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/v1/payments/paymentId/transactions")
+            .respondWith()
+            .statusCode(401)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.payments.listPaymentTransactions({
+                paymentId: "paymentId",
+            });
+        }).rejects.toThrow(SuwardSDK.UnauthorizedError);
+    });
+
+    test("listPaymentTransactions (3)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/v1/payments/paymentId/transactions")
+            .respondWith()
+            .statusCode(404)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.payments.listPaymentTransactions({
+                paymentId: "paymentId",
+            });
+        }).rejects.toThrow(SuwardSDK.NotFoundError);
+    });
+
+    test("listPaymentTransactions (4)", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {};
+
+        server
+            .mockEndpoint()
+            .get("/v1/payments/paymentId/transactions")
+            .respondWith()
+            .statusCode(500)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        await expect(async () => {
+            return await client.payments.listPaymentTransactions({
+                paymentId: "paymentId",
             });
         }).rejects.toThrow(SuwardSDK.InternalServerError);
     });

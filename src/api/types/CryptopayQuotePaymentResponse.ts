@@ -3,6 +3,7 @@
 import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayQuotePaymentResponse {
+    /** Asset the quote is denominated in, echoed from the request. */
     asset?: SuwardSDK.CryptopayAssetId | undefined;
     /** Gross amount, integer string in the asset's smallest unit. */
     amount?: string | undefined;

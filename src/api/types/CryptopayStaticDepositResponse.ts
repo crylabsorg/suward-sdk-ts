@@ -3,29 +3,48 @@
 import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayStaticDepositResponse {
+    /** Unix-milliseconds timestamp when the deposit reached the accepted (safe confirmations) tier. Null before acceptance. */
     acceptedAt?: number | undefined;
+    /** On-chain address that received the deposit (the static wallet's address). */
     address?: string | undefined;
+    /** Gross deposited amount, an integer string in the asset's smallest unit (see CreatePaymentRequest.amount). */
     amount?: string | undefined;
+    /** Asset of the deposit, as an asset id-string (see GET /v1/assets). */
     asset?: SuwardSDK.CryptopayAssetId | undefined;
+    /** Unix-milliseconds timestamp when the deposit reached finality (confirmed). Null before confirmation. */
     confirmedAt?: number | undefined;
+    /** Unix-milliseconds timestamp when the deposit record was created. */
     createdAt?: number | undefined;
+    /** Unix-milliseconds timestamp when the deposit was first detected on-chain. */
     detectedAt?: number | undefined;
     /** ExternalID is the static wallet's externalId, denormalized onto the deposit. */
     externalId?: string | undefined;
+    /** Platform fee on this deposit, integer string in the asset's smallest unit: max(0.4% of the amount, $1 equivalent). The $1 floor is 0 for assets without a published USD price. */
     fee?: string | undefined;
+    /** Unique Suward identifier of the deposit. */
     id?: string | undefined;
+    /** Unix-milliseconds timestamp when the deposit was invalidated (e.g. dropped by a chain reorg). Null unless invalidated. */
     invalidatedAt?: number | undefined;
+    /** Amount credited to the merchant after fees (amount - fee - networkFee), integer string in the asset's smallest unit. */
     netAmount?: string | undefined;
+    /** Estimated on-chain (gas) cost deducted from the deposit, integer string in the asset's smallest unit. */
     networkFee?: string | undefined;
+    /** Identifier of the project that owns this deposit. */
     projectId?: string | undefined;
+    /** Identifier of the static wallet that received this deposit. */
     staticWalletId?: string | undefined;
+    /** Deposit lifecycle status. detected: seen on-chain, awaiting confirmations. accepted: safe confirmations reached, credited (non-final). confirmed: finalized (terminal). ignored: the asset is not on the wallet's allow-list, so the deposit is not credited. invalidated: dropped after detection, e.g. by a chain reorg. */
     status?: CryptopayStaticDepositResponse.Status | undefined;
+    /** Index of this transfer within its transaction, as a string-encoded integer. Distinguishes multiple transfers to the same address in one transaction. */
     transferIndex?: string | undefined;
+    /** On-chain transaction hash of the deposit. */
     txHash?: string | undefined;
+    /** Unix-milliseconds timestamp when the deposit was last updated. */
     updatedAt?: number | undefined;
 }
 
 export namespace CryptopayStaticDepositResponse {
+    /** Deposit lifecycle status. detected: seen on-chain, awaiting confirmations. accepted: safe confirmations reached, credited (non-final). confirmed: finalized (terminal). ignored: the asset is not on the wallet's allow-list, so the deposit is not credited. invalidated: dropped after detection, e.g. by a chain reorg. */
     export const Status = {
         Detected: "detected",
         Accepted: "accepted",

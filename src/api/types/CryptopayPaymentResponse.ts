@@ -3,9 +3,13 @@
 import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayPaymentResponse {
+    /** Unix-milliseconds timestamp when the payment reached the accepted state (safe confirmations, balance credited). Null before acceptance. */
     acceptedAt?: number | undefined;
+    /** Unix-milliseconds timestamp when the payment was activated and its payment window began counting. Null before activation. */
     activatedAt?: number | undefined;
+    /** Resolved activation grace period, in seconds. Null when not configured. */
     activationFlowSeconds?: number | undefined;
+    /** On-chain deposit address the customer must send funds to. Null until the payment is activated and an address is assigned. */
     address?: string | undefined;
     /** Integer string in the asset's smallest unit. */
     amount?: string | undefined;
@@ -13,14 +17,21 @@ export interface CryptopayPaymentResponse {
     amountConfirmed?: string | undefined;
     /** Integer string in the asset's smallest unit. */
     amountReceived?: string | undefined;
+    /** Asset the payment is denominated in, as an asset id-string (see GET /v1/assets). Null until an asset is selected for the payment. */
     asset?: SuwardSDK.CryptopayAssetId | undefined;
+    /** Unix-milliseconds timestamp when the payment reached finalization (confirmed). Null until confirmed; may revert if a chain reorg undoes the confirmation. */
     confirmedAt?: number | undefined;
+    /** Unix-milliseconds timestamp when the payment was created. */
     createdAt?: number | undefined;
+    /** Unix-milliseconds timestamp when the payment window closes; the payment expires (fails) if it has not been paid by then. */
     expiresAt?: number | undefined;
+    /** Merchant's own identifier for this payment, echoed from creation. Null when none was provided. */
     externalId?: string | undefined;
     /** Platform fee: 0.4% of the amount, minimum $1 equivalent. Integer string in the asset's smallest unit. */
     fee?: string | undefined;
+    /** Unique Suward identifier of the payment. Use it in the payment endpoints (get, cancel, transactions) and as the checkout page path. */
     id?: string | undefined;
+    /** Arbitrary key/value data attached by the merchant at creation, echoed back unchanged. */
     metadata?: Record<string, unknown> | undefined;
     /** Estimated on-chain (gas) cost, deducted from the received amount. Integer string in the asset's smallest unit. */
     networkFee?: string | undefined;
@@ -30,15 +41,23 @@ export interface CryptopayPaymentResponse {
     networkFeePayer?: SuwardSDK.CryptopayFeePayer | undefined;
     /** Who bears the platform (service) fee, echoed from creation. */
     serviceFeePayer?: SuwardSDK.CryptopayFeePayer | undefined;
+    /** Resolved length of the payment window, in seconds. */
     paymentWindowSeconds?: number | undefined;
+    /** Identifier of the project that owns this payment. */
     projectId?: string | undefined;
+    /** Return-to-store redirect configuration echoed from creation. Null when none was configured. */
     redirectConfig?: SuwardSDK.CryptopayRedirectConfigDto | undefined;
+    /** Main payment lifecycle status. See the status enum for the full meaning of each value. */
     status?: SuwardSDK.CryptopayPaymentStatusEnum | undefined;
+    /** Fine-grained payment sub-status describing the current step or amount condition. See the sub-status enum for the full meaning of each value. */
     subStatus?: SuwardSDK.CryptopayPaymentSubStatusEnum | undefined;
-    transactions?: SuwardSDK.CryptopayTransactionResponse[] | undefined;
+    /** Preview page of the on-chain transactions detected for this payment (newest first). Use GET /v1/payments/{paymentId}/transactions for the full paginated list. */
+    transactions?: SuwardSDK.CryptopaywireTransactionList | undefined;
     /** Integer string in the asset's smallest unit. */
     underpaymentTolerance?: string | undefined;
+    /** Unix-milliseconds timestamp when the payment was last updated. */
     updatedAt?: number | undefined;
+    /** Webhook URL that receives this payment's events, echoed from creation. Null when the project default webhook is used. */
     webhookUrl?: string | undefined;
     /** Absolute URL of the Suward-hosted checkout page where the customer pays this payment. */
     paymentPageUrl?: string | undefined;

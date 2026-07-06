@@ -601,4 +601,103 @@ export class PaymentsClient {
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "POST", "/v1/payments/quote");
     }
+
+    /**
+     * Paginated list of the on-chain transactions detected for a payment.
+     *
+     * @param {SuwardSDK.GetV1PaymentsPaymentIdTransactionsRequest} request
+     * @param {PaymentsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link SuwardSDK.UnauthorizedError}
+     * @throws {@link SuwardSDK.NotFoundError}
+     * @throws {@link SuwardSDK.InternalServerError}
+     *
+     * @example
+     *     await client.payments.listPaymentTransactions({
+     *         paymentId: "paymentId"
+     *     })
+     */
+    public listPaymentTransactions(
+        request: SuwardSDK.GetV1PaymentsPaymentIdTransactionsRequest,
+        requestOptions?: PaymentsClient.RequestOptions,
+    ): core.HttpResponsePromise<SuwardSDK.CryptopaywireTransactionList> {
+        return core.HttpResponsePromise.fromPromise(this.__listPaymentTransactions(request, requestOptions));
+    }
+
+    private async __listPaymentTransactions(
+        request: SuwardSDK.GetV1PaymentsPaymentIdTransactionsRequest,
+        requestOptions?: PaymentsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<SuwardSDK.CryptopaywireTransactionList>> {
+        const { paymentId, order, limit, lastId } = request;
+        const _queryParams: Record<string, unknown> = {
+            order: order != null ? order : undefined,
+            limit,
+            lastId,
+        };
+        const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(
+            _authRequest.headers,
+            this._options?.headers,
+            requestOptions?.headers,
+        );
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.SuwardSDKEnvironment.Default,
+                `v1/payments/${core.url.encodePathParam(paymentId)}/transactions`,
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url
+                .queryBuilder()
+                .addMany(_queryParams)
+                .mergeAdditional(requestOptions?.queryParams)
+                .build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as SuwardSDK.CryptopaywireTransactionList,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 401:
+                    throw new SuwardSDK.UnauthorizedError(
+                        _response.error.body as SuwardSDK.ControllerErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 404:
+                    throw new SuwardSDK.NotFoundError(
+                        _response.error.body as SuwardSDK.ControllerErrorResponse,
+                        _response.rawResponse,
+                    );
+                case 500:
+                    throw new SuwardSDK.InternalServerError(
+                        _response.error.body as SuwardSDK.ControllerErrorResponse,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.SuwardSDKError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        return handleNonStatusCodeError(
+            _response.error,
+            _response.rawResponse,
+            "GET",
+            "/v1/payments/{paymentId}/transactions",
+        );
+    }
 }

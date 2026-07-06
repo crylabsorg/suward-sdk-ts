@@ -7,18 +7,26 @@ import type * as SuwardSDK from "../../../../index.js";
  *     {}
  */
 export interface CryptopayCreatePaymentRequest {
+    /** Grace period in seconds before the payment window starts counting, giving the customer time to open the checkout before the timer runs. Optional; range 1 to 3600 (1 hour). */
     activationFlowSeconds?: number;
     /** Merchant base amount, integer string in the asset's smallest unit. When a fee payer is customer the customer is charged more than this (gross); when merchant (default) the fee is deducted from the merchant's proceeds. */
     amount?: string;
+    /** Asset the customer will pay in, as an asset id-string (e.g. USDT_ARBITRUM). Required only when the project allows more than one asset; when the project has a single asset it may be omitted. The full set of accepted values is served live at GET /v1/assets. */
     asset?: SuwardSDK.CryptopayAssetId;
     /** Who bears the network (gas) fee. Default merchant. */
     networkFeePayer?: SuwardSDK.CryptopayFeePayer;
     /** Who bears the platform (service) fee. Default merchant. */
     serviceFeePayer?: SuwardSDK.CryptopayFeePayer;
+    /** Your own identifier for this payment. Echoed back on the payment and its webhooks, and can be appended to the return URL as a redirect parameter. Optional. */
     externalId?: string;
+    /** Arbitrary JSON key/value data to attach to the payment. Stored and echoed back unchanged on the payment and its webhooks; never sent on-chain. Use it to correlate the payment with your own records. */
     metadata?: Record<string, unknown>;
+    /** How long the payment stays open for funding, in seconds. Optional; when omitted the project default applies. Range 300 (5 minutes) to 86400 (24 hours). */
     paymentWindowSeconds?: number;
+    /** Optional "return to store" redirect configuration: the base URL the customer is sent back to after paying, plus which payment identifiers to append as query parameters. */
     redirectConfig?: SuwardSDK.CryptopayRedirectConfigDto;
+    /** Amount the customer may underpay and still have the payment accepted, as an integer string in the asset's smallest unit (same scale as amount). Optional; if set it must be >= 0 and strictly less than amount. Default 0 (exact amount required). Example: for amount "10000000" (10 USDT) a value of "500000" allows a 0.50 USDT shortfall. */
     underpaymentTolerance?: string;
+    /** Webhook URL to receive this payment's events. Optional; overrides the project's default webhook URL for this payment only. */
     webhookUrl?: string;
 }

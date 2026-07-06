@@ -23,6 +23,8 @@ export class StaticWalletsClient {
     }
 
     /**
+     * List the project's static wallets, newest first. Paginated via limit and lastId.
+     *
      * @param {SuwardSDK.GetV1StaticWalletsRequest} request
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -180,6 +182,8 @@ export class StaticWalletsClient {
     }
 
     /**
+     * Fetch a single static wallet by its id.
+     *
      * @param {SuwardSDK.GetV1StaticWalletsStaticWalletIdRequest} request
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -256,6 +260,8 @@ export class StaticWalletsClient {
     }
 
     /**
+     * Delete a static wallet. Its address stops being monitored and can no longer receive new deposits; previously recorded deposits are unaffected.
+     *
      * @param {SuwardSDK.DeleteV1StaticWalletsStaticWalletIdRequest} request
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -329,6 +335,8 @@ export class StaticWalletsClient {
     }
 
     /**
+     * Update a static wallet's accepted-asset allow-list, metadata, or webhook URL. Only the fields present in the body are changed.
+     *
      * @param {SuwardSDK.CryptopayUpdateStaticWalletRequest} request
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -408,6 +416,8 @@ export class StaticWalletsClient {
     }
 
     /**
+     * Paginated list of the deposits received by a static wallet, newest first.
+     *
      * @param {SuwardSDK.GetV1StaticWalletsStaticWalletIdDepositsRequest} request
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -493,6 +503,8 @@ export class StaticWalletsClient {
     }
 
     /**
+     * Fetch a single static-wallet deposit by its id.
+     *
      * @param {SuwardSDK.GetV1StaticWalletsStaticWalletIdDepositsDepositIdRequest} request
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *

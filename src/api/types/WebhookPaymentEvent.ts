@@ -6,14 +6,18 @@ import type * as SuwardSDK from "../index.js";
  * Webhook body for a payment lifecycle transition. Signed over the raw body with the project's Ed25519 key; verify with project.webhookPublicKey. `createdAt` is the signed, trusted timestamp; `payment` is the full payment resource (the same shape as the merchant GET /v1/payments/{paymentId} view). Obtain `webhookPublicKey` from your project settings in the Suward dashboard.
  */
 export interface WebhookPaymentEvent {
+    /** Event type. payment.accepted: safe confirmations reached and the balance was credited (non-final). payment.success: the payment finalized (terminal). payment.failed: the payment failed or expired without a valid payment (terminal). */
     type: WebhookPaymentEvent.Type;
+    /** Unique identifier of this event. The same event may be redelivered on retry; use eventId to deduplicate. */
     eventId: string;
     /** Event creation time, unix milliseconds. */
     createdAt: number;
+    /** Full payment resource at the time of the event — the same shape as the merchant GET /v1/payments/{paymentId} view. */
     payment: SuwardSDK.CryptopayPaymentResponse;
 }
 
 export namespace WebhookPaymentEvent {
+    /** Event type. payment.accepted: safe confirmations reached and the balance was credited (non-final). payment.success: the payment finalized (terminal). payment.failed: the payment failed or expired without a valid payment (terminal). */
     export const Type = {
         PaymentAccepted: "payment.accepted",
         PaymentSuccess: "payment.success",

@@ -35,6 +35,10 @@ export interface CryptopayPaymentResponse {
     metadata?: Record<string, unknown> | undefined;
     /** Estimated on-chain (gas) cost, deducted from the received amount. Integer string in the asset's smallest unit. */
     networkFee?: string | undefined;
+    /** The service-fee rate applied to this payment, in basis points (e.g. 40 = 0.4%). */
+    serviceFeeBps?: number | undefined;
+    /** The minimum service-fee floor applied to this payment, as a USD decimal string (e.g. "1"). */
+    serviceFeeMinUsd?: string | undefined;
     /** USD price of the asset locked at creation, decimal string. Fees are computed from this price at settlement, so the merchant's net is deterministic. */
     quotedPrice?: string | undefined;
     /** Who bears the network (gas) fee, echoed from creation. */

@@ -4,6 +4,7 @@ import type { BaseClientOptions, BaseRequestOptions } from "../../../../BaseClie
 import { type NormalizedClientOptionsWithAuth, normalizeClientOptionsWithAuth } from "../../../../BaseClient.js";
 import { mergeHeaders } from "../../../../core/headers.js";
 import * as core from "../../../../core/index.js";
+import { mergeAdditionalBodyParameters } from "../../../../core/requestBody.js";
 import * as environments from "../../../../environments.js";
 import { handleNonStatusCodeError } from "../../../../errors/handleNonStatusCodeError.js";
 import * as errors from "../../../../errors/index.js";
@@ -23,7 +24,7 @@ export class PaymentsClient {
     }
 
     /**
-     * List payments for a project
+     * Return a paginated list of the project's payments, newest first. Page and sort the results with the order, limit, and lastId query parameters.
      *
      * @param {SuwardSDK.GetV1PaymentsRequest} request
      * @param {PaymentsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -115,7 +116,7 @@ export class PaymentsClient {
     }
 
     /**
-     * Create a new payment
+     * Create a payment request. Returns a unique, single-use deposit address and the amount to collect; the customer pays and you track progress via webhooks or polling. Pass externalId to make the call idempotent and dedupe retries.
      *
      * @param {SuwardSDK.CryptopayCreatePaymentRequest} request
      * @param {PaymentsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -156,7 +157,7 @@ export class PaymentsClient {
             contentType: "application/json",
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -344,7 +345,7 @@ export class PaymentsClient {
     }
 
     /**
-     * Cancel a payment
+     * Cancel a payment that has not yet completed. It stops accepting funds and moves to a terminal Failed state. Only valid from early statuses (before finality).
      *
      * @param {SuwardSDK.PostV1PaymentsPaymentIdCancelRequest} request
      * @param {PaymentsClient.RequestOptions} requestOptions - Request-specific configuration.
@@ -469,7 +470,7 @@ export class PaymentsClient {
             contentType: "application/json",
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: _body,
+            body: mergeAdditionalBodyParameters(_body, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -559,7 +560,7 @@ export class PaymentsClient {
             contentType: "application/json",
             queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
             requestType: "json",
-            body: request,
+            body: mergeAdditionalBodyParameters(request, requestOptions?.additionalBodyParameters),
             timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
             maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
             abortSignal: requestOptions?.abortSignal,

@@ -31,9 +31,13 @@ export interface CryptopayStaticDepositResponse {
     networkFee?: string | undefined;
     /** Identifier of the project that owns this deposit. */
     projectId?: string | undefined;
+    /** The service-fee rate applied to this deposit, in basis points (e.g. 40 = 0.4%). */
+    serviceFeeBps?: number | undefined;
+    /** The minimum service-fee floor applied to this deposit, as a USD decimal string (e.g. "1"). */
+    serviceFeeMinUsd?: string | undefined;
     /** Identifier of the static wallet that received this deposit. */
     staticWalletId?: string | undefined;
-    /** Deposit lifecycle status. detected: seen on-chain, awaiting confirmations. accepted: safe confirmations reached, credited (non-final). confirmed: finalized (terminal). ignored: the asset is not on the wallet's allow-list, so the deposit is not credited. invalidated: dropped after detection, e.g. by a chain reorg. */
+    /** Deposit lifecycle status. detected: seen on-chain, awaiting confirmations. accepted: safe confirmations reached, credited (non-final). confirmed: finalized (terminal). ignored: the asset is not on the wallet's allow-list, so the deposit is not credited. invalidated: dropped after detection, e.g. by a chain reorg. complianceHold: held pending compliance review. complianceRejected: rejected by compliance, credit reversed (terminal). */
     status?: CryptopayStaticDepositResponse.Status | undefined;
     /** Index of this transfer within its transaction, as a string-encoded integer. Distinguishes multiple transfers to the same address in one transaction. */
     transferIndex?: string | undefined;
@@ -44,13 +48,15 @@ export interface CryptopayStaticDepositResponse {
 }
 
 export namespace CryptopayStaticDepositResponse {
-    /** Deposit lifecycle status. detected: seen on-chain, awaiting confirmations. accepted: safe confirmations reached, credited (non-final). confirmed: finalized (terminal). ignored: the asset is not on the wallet's allow-list, so the deposit is not credited. invalidated: dropped after detection, e.g. by a chain reorg. */
+    /** Deposit lifecycle status. detected: seen on-chain, awaiting confirmations. accepted: safe confirmations reached, credited (non-final). confirmed: finalized (terminal). ignored: the asset is not on the wallet's allow-list, so the deposit is not credited. invalidated: dropped after detection, e.g. by a chain reorg. complianceHold: held pending compliance review. complianceRejected: rejected by compliance, credit reversed (terminal). */
     export const Status = {
         Detected: "detected",
         Accepted: "accepted",
         Confirmed: "confirmed",
         Ignored: "ignored",
         Invalidated: "invalidated",
+        ComplianceHold: "complianceHold",
+        ComplianceRejected: "complianceRejected",
     } as const;
     export type Status = (typeof Status)[keyof typeof Status];
 }

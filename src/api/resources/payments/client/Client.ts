@@ -32,6 +32,8 @@ export class PaymentsClient {
      * @throws {@link SuwardSDK.BadRequestError}
      * @throws {@link SuwardSDK.UnauthorizedError}
      * @throws {@link SuwardSDK.InternalServerError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.payments.listPayments()
@@ -124,6 +126,8 @@ export class PaymentsClient {
      * @throws {@link SuwardSDK.BadRequestError}
      * @throws {@link SuwardSDK.UnauthorizedError}
      * @throws {@link SuwardSDK.InternalServerError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.payments.createPayment()
@@ -205,6 +209,8 @@ export class PaymentsClient {
      * @param {PaymentsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link SuwardSDK.InternalServerError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.payments.getPayment({
@@ -278,6 +284,8 @@ export class PaymentsClient {
      * @param {PaymentsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link SuwardSDK.InternalServerError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.payments.activatePayment({
@@ -352,6 +360,8 @@ export class PaymentsClient {
      *
      * @throws {@link SuwardSDK.UnauthorizedError}
      * @throws {@link SuwardSDK.InternalServerError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.payments.cancelPayment({
@@ -434,6 +444,8 @@ export class PaymentsClient {
      * @throws {@link SuwardSDK.BadRequestError}
      * @throws {@link SuwardSDK.UnauthorizedError}
      * @throws {@link SuwardSDK.InternalServerError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.payments.simulatePayment({
@@ -524,6 +536,8 @@ export class PaymentsClient {
      * @throws {@link SuwardSDK.BadRequestError}
      * @throws {@link SuwardSDK.UnauthorizedError}
      * @throws {@link SuwardSDK.InternalServerError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.payments.quotePaymentFees({
@@ -612,6 +626,8 @@ export class PaymentsClient {
      * @throws {@link SuwardSDK.UnauthorizedError}
      * @throws {@link SuwardSDK.NotFoundError}
      * @throws {@link SuwardSDK.InternalServerError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.payments.listPaymentTransactions({

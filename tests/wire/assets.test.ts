@@ -47,4 +47,46 @@ describe("AssetsClient", () => {
         const response = await client.assets.listSupportedBlockchains();
         expect(response).toEqual(rawResponseBody);
     });
+
+    test("listAssetGroups", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { items: [{ id: 1, name: "name" }] };
+
+        server.mockEndpoint().get("/v1/assetGroups").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.assets.listAssetGroups();
+        expect(response).toEqual(rawResponseBody);
+    });
+
+    test("getWithdrawalConfiguration", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            withdrawalFeeUsd: "withdrawalFeeUsd",
+            assets: [
+                {
+                    id: "USDT_ETHEREUM",
+                    blockchainId: 1,
+                    contractAddress: "contractAddress",
+                    decimals: 1,
+                    group: "group",
+                    name: "name",
+                },
+            ],
+        };
+
+        server
+            .mockEndpoint()
+            .get("/v1/withdrawalConfig")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.assets.getWithdrawalConfiguration();
+        expect(response).toEqual(rawResponseBody);
+    });
 });

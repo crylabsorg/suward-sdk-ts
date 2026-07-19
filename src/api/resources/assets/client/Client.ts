@@ -27,6 +27,9 @@ export class AssetsClient {
      *
      * @param {AssetsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
+     *
      * @example
      *     await client.assets.listAcceptedAssets()
      */
@@ -76,6 +79,9 @@ export class AssetsClient {
      *
      * @param {AssetsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
+     *
      * @example
      *     await client.assets.listSupportedBlockchains()
      */
@@ -121,5 +127,112 @@ export class AssetsClient {
         }
 
         return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/v1/blockchains");
+    }
+
+    /**
+     * Returns the asset groups (same-symbol assets pooled across chains, e.g. USDT, USDC, ETH). No authentication required.
+     *
+     * @param {AssetsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
+     *
+     * @example
+     *     await client.assets.listAssetGroups()
+     */
+    public listAssetGroups(
+        requestOptions?: AssetsClient.RequestOptions,
+    ): core.HttpResponsePromise<SuwardSDK.GetV1AssetGroupsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listAssetGroups(requestOptions));
+    }
+
+    private async __listAssetGroups(
+        requestOptions?: AssetsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<SuwardSDK.GetV1AssetGroupsResponse>> {
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(this._options?.headers, requestOptions?.headers);
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.SuwardSDKEnvironment.Default,
+                "v1/assetGroups",
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return { data: _response.body as SuwardSDK.GetV1AssetGroupsResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SuwardSDKError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/v1/assetGroups");
+    }
+
+    /**
+     * Returns the asset/network pairs available for withdrawal and the flat withdrawal fee (USD). No authentication required.
+     *
+     * @param {AssetsClient.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
+     *
+     * @example
+     *     await client.assets.getWithdrawalConfiguration()
+     */
+    public getWithdrawalConfiguration(
+        requestOptions?: AssetsClient.RequestOptions,
+    ): core.HttpResponsePromise<SuwardSDK.CryptopayWithdrawalConfigResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getWithdrawalConfiguration(requestOptions));
+    }
+
+    private async __getWithdrawalConfiguration(
+        requestOptions?: AssetsClient.RequestOptions,
+    ): Promise<core.WithRawResponse<SuwardSDK.CryptopayWithdrawalConfigResponse>> {
+        const _headers: core.Fetcher.Args["headers"] = mergeHeaders(this._options?.headers, requestOptions?.headers);
+        const _response = await core.fetcher({
+            url: core.url.join(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.SuwardSDKEnvironment.Default,
+                "v1/withdrawalConfig",
+            ),
+            method: "GET",
+            headers: _headers,
+            queryString: core.url.queryBuilder().mergeAdditional(requestOptions?.queryParams).build(),
+            timeoutMs: (requestOptions?.timeoutInSeconds ?? this._options?.timeoutInSeconds ?? 60) * 1000,
+            maxRetries: requestOptions?.maxRetries ?? this._options?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+            fetchFn: this._options?.fetch,
+            logging: this._options.logging,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as SuwardSDK.CryptopayWithdrawalConfigResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.SuwardSDKError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        return handleNonStatusCodeError(_response.error, _response.rawResponse, "GET", "/v1/withdrawalConfig");
     }
 }

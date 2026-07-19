@@ -30,6 +30,8 @@ export class StaticWalletsClient {
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link SuwardSDK.UnauthorizedError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.staticWallets.listStaticWallets()
@@ -111,6 +113,8 @@ export class StaticWalletsClient {
      *
      * @throws {@link SuwardSDK.BadRequestError}
      * @throws {@link SuwardSDK.UnauthorizedError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.staticWallets.createStaticWallet()
@@ -189,6 +193,8 @@ export class StaticWalletsClient {
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link SuwardSDK.NotFoundError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.staticWallets.getStaticWallet({
@@ -267,6 +273,8 @@ export class StaticWalletsClient {
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link SuwardSDK.NotFoundError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.staticWallets.deleteStaticWallet({
@@ -342,6 +350,8 @@ export class StaticWalletsClient {
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link SuwardSDK.BadRequestError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.staticWallets.updateStaticWallet({
@@ -423,6 +433,8 @@ export class StaticWalletsClient {
      * @param {StaticWalletsClient.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link SuwardSDK.NotFoundError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.staticWallets.listStaticWalletDeposits({
@@ -511,6 +523,8 @@ export class StaticWalletsClient {
      *
      * @throws {@link SuwardSDK.UnauthorizedError}
      * @throws {@link SuwardSDK.NotFoundError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.staticWallets.getStaticWalletDeposit({
@@ -596,6 +610,8 @@ export class StaticWalletsClient {
      *
      * @throws {@link SuwardSDK.BadRequestError}
      * @throws {@link SuwardSDK.NotFoundError}
+     * @throws {@link errors.SuwardSDKError}
+     * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
      *     await client.staticWallets.simulateStaticWalletDeposit({

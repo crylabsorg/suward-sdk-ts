@@ -1,4 +1,5 @@
 export * from "./ControllerErrorResponse.js";
+export * from "./CryptopayAssetGroupResponse.js";
 export * from "./CryptopayAssetId.js";
 export * from "./CryptopayAssetResponse.js";
 export * from "./CryptopayBlockchainResponse.js";
@@ -16,6 +17,7 @@ export * from "./CryptopayRedirectConfigDto.js";
 export * from "./CryptopayStaticDepositResponse.js";
 export * from "./CryptopayStaticWalletResponse.js";
 export * from "./CryptopayTransactionResponse.js";
+export * from "./CryptopayWithdrawalConfigResponse.js";
 export * from "./CryptopaywireTransactionList.js";
 export * from "./WebhookPaymentEvent.js";
 export * from "./WebhookStaticDepositEvent.js";

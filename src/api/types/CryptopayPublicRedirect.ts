@@ -2,7 +2,7 @@
 
 export interface CryptopayPublicRedirect {
     /** Query parameters to append to the URL when redirecting the customer back, e.g. id, externalId, data. Empty when the redirect has no parameters. */
-    query?: Record<string, string> | undefined;
+    query: Record<string, string>;
     /** Base "return to store" URL the customer is sent back to after paying. */
-    url?: string | undefined;
+    url: string;
 }

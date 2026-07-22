@@ -4,7 +4,7 @@ import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayWithdrawalConfigResponse {
     /** Flat per-withdrawal fee in USD (decimal string). */
-    withdrawalFeeUsd?: string | undefined;
+    withdrawalFeeUsd: string;
     /** Asset/network pairs available for withdrawal. */
-    assets?: SuwardSDK.CryptopayAssetResponse[] | undefined;
+    assets: SuwardSDK.CryptopayAssetResponse[];
 }

@@ -4,7 +4,7 @@ export interface ControllerErrorResponse {
     /** Optional list of values interpolated into the error message template (e.g. field names or limits). Order matches the placeholders in the message. */
     args?: unknown[] | undefined;
     /** Stable numeric application error code identifying the error type. Use it for programmatic handling; it does not change across locales or message wording. */
-    errorCode?: number | undefined;
+    errorCode: number;
     /** Human-readable description of what went wrong. Intended for logging and debugging, not for programmatic branching (use errorCode for that). */
-    message?: string | undefined;
+    message: string;
 }

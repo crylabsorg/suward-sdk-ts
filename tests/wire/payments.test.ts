@@ -25,6 +25,7 @@ describe("PaymentsClient", () => {
                     createdAt: 1,
                     expiresAt: 1,
                     externalId: "externalId",
+                    complianceLevel: "basic",
                     fee: "fee",
                     id: "id",
                     metadata: { key: "value" },
@@ -36,8 +37,10 @@ describe("PaymentsClient", () => {
                     serviceFeePayer: "merchant",
                     paymentWindowSeconds: 1,
                     projectId: "projectId",
+                    redirectConfig: { url: "url" },
                     status: "pending",
                     subStatus: "created",
+                    transactions: { hasMore: true, items: [{ amount: "amount", detectedAt: 1, txHash: "txHash" }] },
                     underpaymentTolerance: "underpaymentTolerance",
                     updatedAt: 1,
                     webhookUrl: "webhookUrl",
@@ -56,7 +59,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server.mockEndpoint().get("/v1/payments").respondWith().statusCode(400).jsonBody(rawResponseBody).build();
 
@@ -69,7 +72,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server.mockEndpoint().get("/v1/payments").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
@@ -82,7 +85,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server.mockEndpoint().get("/v1/payments").respondWith().statusCode(500).jsonBody(rawResponseBody).build();
 
@@ -94,7 +97,7 @@ describe("PaymentsClient", () => {
     test("createPayment (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = { amount: "amount" };
         const rawResponseBody = {
             acceptedAt: 1,
             activatedAt: 1,
@@ -108,6 +111,7 @@ describe("PaymentsClient", () => {
             createdAt: 1,
             expiresAt: 1,
             externalId: "externalId",
+            complianceLevel: "basic",
             fee: "fee",
             id: "id",
             metadata: { key: "value" },
@@ -122,7 +126,7 @@ describe("PaymentsClient", () => {
             redirectConfig: { data: "data", params: ["id"], url: "url" },
             status: "pending",
             subStatus: "created",
-            transactions: { hasMore: true, items: [{}] },
+            transactions: { hasMore: true, items: [{ amount: "amount", detectedAt: 1, txHash: "txHash" }] },
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
@@ -138,15 +142,17 @@ describe("PaymentsClient", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.payments.createPayment();
+        const response = await client.payments.createPayment({
+            amount: "amount",
+        });
         expect(response).toEqual(rawResponseBody);
     });
 
     test("createPayment (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawRequestBody = { amount: "amount" };
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -158,15 +164,17 @@ describe("PaymentsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.payments.createPayment();
+            return await client.payments.createPayment({
+                amount: "amount",
+            });
         }).rejects.toThrow(SuwardSDK.BadRequestError);
     });
 
     test("createPayment (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawRequestBody = { amount: "amount" };
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -178,15 +186,17 @@ describe("PaymentsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.payments.createPayment();
+            return await client.payments.createPayment({
+                amount: "amount",
+            });
         }).rejects.toThrow(SuwardSDK.UnauthorizedError);
     });
 
     test("createPayment (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawRequestBody = { amount: "amount" };
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -198,7 +208,9 @@ describe("PaymentsClient", () => {
             .build();
 
         await expect(async () => {
-            return await client.payments.createPayment();
+            return await client.payments.createPayment({
+                amount: "amount",
+            });
         }).rejects.toThrow(SuwardSDK.InternalServerError);
     });
 
@@ -219,6 +231,7 @@ describe("PaymentsClient", () => {
             createdAt: 1,
             expiresAt: 1,
             externalId: "externalId",
+            complianceLevel: "basic",
             fee: "fee",
             id: "id",
             metadata: { key: "value" },
@@ -233,7 +246,7 @@ describe("PaymentsClient", () => {
             redirectConfig: { data: "data", params: ["id"], url: "url" },
             status: "pending",
             subStatus: "created",
-            transactions: { hasMore: true, items: [{}] },
+            transactions: { hasMore: true, items: [{ amount: "amount", detectedAt: 1, txHash: "txHash" }] },
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
@@ -258,7 +271,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -316,7 +329,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -350,6 +363,7 @@ describe("PaymentsClient", () => {
             createdAt: 1,
             expiresAt: 1,
             externalId: "externalId",
+            complianceLevel: "basic",
             fee: "fee",
             id: "id",
             metadata: { key: "value" },
@@ -364,7 +378,7 @@ describe("PaymentsClient", () => {
             redirectConfig: { data: "data", params: ["id"], url: "url" },
             status: "pending",
             subStatus: "created",
-            transactions: { hasMore: true, items: [{}] },
+            transactions: { hasMore: true, items: [{ amount: "amount", detectedAt: 1, txHash: "txHash" }] },
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
@@ -389,7 +403,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -410,7 +424,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -430,7 +444,7 @@ describe("PaymentsClient", () => {
     test("simulatePayment (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = { status: "pending", subStatus: "created" };
         const rawResponseBody = {
             acceptedAt: 1,
             activatedAt: 1,
@@ -444,6 +458,7 @@ describe("PaymentsClient", () => {
             createdAt: 1,
             expiresAt: 1,
             externalId: "externalId",
+            complianceLevel: "basic",
             fee: "fee",
             id: "id",
             metadata: { key: "value" },
@@ -458,7 +473,7 @@ describe("PaymentsClient", () => {
             redirectConfig: { data: "data", params: ["id"], url: "url" },
             status: "pending",
             subStatus: "created",
-            transactions: { hasMore: true, items: [{}] },
+            transactions: { hasMore: true, items: [{ amount: "amount", detectedAt: 1, txHash: "txHash" }] },
             underpaymentTolerance: "underpaymentTolerance",
             updatedAt: 1,
             webhookUrl: "webhookUrl",
@@ -476,6 +491,8 @@ describe("PaymentsClient", () => {
 
         const response = await client.payments.simulatePayment({
             paymentId: "paymentId",
+            status: "pending",
+            subStatus: "created",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -483,8 +500,8 @@ describe("PaymentsClient", () => {
     test("simulatePayment (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawRequestBody = { status: "pending", subStatus: "created" };
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -498,6 +515,8 @@ describe("PaymentsClient", () => {
         await expect(async () => {
             return await client.payments.simulatePayment({
                 paymentId: "paymentId",
+                status: "pending",
+                subStatus: "created",
             });
         }).rejects.toThrow(SuwardSDK.BadRequestError);
     });
@@ -505,8 +524,8 @@ describe("PaymentsClient", () => {
     test("simulatePayment (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawRequestBody = { status: "pending", subStatus: "created" };
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -520,6 +539,8 @@ describe("PaymentsClient", () => {
         await expect(async () => {
             return await client.payments.simulatePayment({
                 paymentId: "paymentId",
+                status: "pending",
+                subStatus: "created",
             });
         }).rejects.toThrow(SuwardSDK.UnauthorizedError);
     });
@@ -527,8 +548,8 @@ describe("PaymentsClient", () => {
     test("simulatePayment (4)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawRequestBody = { status: "pending", subStatus: "created" };
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -542,6 +563,8 @@ describe("PaymentsClient", () => {
         await expect(async () => {
             return await client.payments.simulatePayment({
                 paymentId: "paymentId",
+                status: "pending",
+                subStatus: "created",
             });
         }).rejects.toThrow(SuwardSDK.InternalServerError);
     });
@@ -554,6 +577,7 @@ describe("PaymentsClient", () => {
             asset: "USDT_ETHEREUM",
             amount: "amount",
             fee: "fee",
+            complianceLevel: "basic",
             networkFee: "networkFee",
             netAmount: "netAmount",
             gross: "gross",
@@ -580,7 +604,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { asset: "USDT_ETHEREUM", amount: "amount" };
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -603,7 +627,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { asset: "USDT_ETHEREUM", amount: "amount" };
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -626,7 +650,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { asset: "USDT_ETHEREUM", amount: "amount" };
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -672,7 +696,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -693,7 +717,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -714,7 +738,7 @@ describe("PaymentsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()

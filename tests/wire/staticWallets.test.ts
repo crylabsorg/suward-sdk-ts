@@ -36,7 +36,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server.mockEndpoint().get("/v1/static-wallets").respondWith().statusCode(401).jsonBody(rawResponseBody).build();
 
@@ -78,7 +78,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -98,7 +98,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -148,7 +148,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -189,7 +189,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -241,7 +241,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -310,7 +310,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -374,7 +374,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -396,7 +396,7 @@ describe("StaticWalletsClient", () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {};
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -417,7 +417,7 @@ describe("StaticWalletsClient", () => {
     test("simulateStaticWalletDeposit (1)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
+        const rawRequestBody = { amount: "amount", asset: "USDT_ETHEREUM", status: "detected" };
         const rawResponseBody = {
             acceptedAt: 1,
             address: "address",
@@ -453,6 +453,9 @@ describe("StaticWalletsClient", () => {
 
         const response = await client.staticWallets.simulateStaticWalletDeposit({
             staticWalletId: "staticWalletId",
+            amount: "amount",
+            asset: "USDT_ETHEREUM",
+            status: "detected",
         });
         expect(response).toEqual(rawResponseBody);
     });
@@ -460,8 +463,8 @@ describe("StaticWalletsClient", () => {
     test("simulateStaticWalletDeposit (2)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawRequestBody = { amount: "amount", asset: "USDT_ETHEREUM", status: "detected" };
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -475,6 +478,9 @@ describe("StaticWalletsClient", () => {
         await expect(async () => {
             return await client.staticWallets.simulateStaticWalletDeposit({
                 staticWalletId: "staticWalletId",
+                amount: "amount",
+                asset: "USDT_ETHEREUM",
+                status: "detected",
             });
         }).rejects.toThrow(SuwardSDK.BadRequestError);
     });
@@ -482,8 +488,8 @@ describe("StaticWalletsClient", () => {
     test("simulateStaticWalletDeposit (3)", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = {};
-        const rawResponseBody = {};
+        const rawRequestBody = { amount: "amount", asset: "USDT_ETHEREUM", status: "detected" };
+        const rawResponseBody = { errorCode: 1, message: "message" };
 
         server
             .mockEndpoint()
@@ -497,6 +503,9 @@ describe("StaticWalletsClient", () => {
         await expect(async () => {
             return await client.staticWallets.simulateStaticWalletDeposit({
                 staticWalletId: "staticWalletId",
+                amount: "amount",
+                asset: "USDT_ETHEREUM",
+                status: "detected",
             });
         }).rejects.toThrow(SuwardSDK.NotFoundError);
     });

@@ -12,57 +12,59 @@ export interface CryptopayPaymentResponse {
     /** On-chain deposit address the customer must send funds to. Null until the payment is activated and an address is assigned. */
     address?: string | undefined;
     /** Integer string in the asset's smallest unit. */
-    amount?: string | undefined;
+    amount: string;
     /** Integer string in the asset's smallest unit. */
-    amountConfirmed?: string | undefined;
+    amountConfirmed: string;
     /** Integer string in the asset's smallest unit. */
-    amountReceived?: string | undefined;
+    amountReceived: string;
     /** Asset the payment is denominated in, as an asset id-string (see GET /v1/assets). Null until an asset is selected for the payment. */
     asset?: SuwardSDK.CryptopayAssetId | undefined;
     /** Unix-milliseconds timestamp when the payment reached finalization (confirmed). Null until confirmed; may revert if a chain reorg undoes the confirmation. */
     confirmedAt?: number | undefined;
     /** Unix-milliseconds timestamp when the payment was created. */
-    createdAt?: number | undefined;
+    createdAt: number;
     /** Unix-milliseconds timestamp when the payment window closes; the payment expires (fails) if it has not been paid by then. */
-    expiresAt?: number | undefined;
+    expiresAt: number;
     /** Merchant's own identifier for this payment, echoed from creation. Null when none was provided. */
     externalId?: string | undefined;
-    /** Platform fee: 0.4% of the amount, minimum $1 equivalent. Integer string in the asset's smallest unit. */
-    fee?: string | undefined;
+    /** AML screening depth applied to this payment: basic (free, no fee floor) or extended ($0.45 floor). */
+    complianceLevel?: SuwardSDK.CryptopayComplianceLevel | undefined;
+    /** Platform fee, integer string in the asset's smallest unit. For extended compliance: max(0.4% of the amount, $0.45 equivalent); for basic: 0.4% with no floor. */
+    fee: string;
     /** Unique Suward identifier of the payment. Use it in the payment endpoints (get, cancel, transactions) and as the checkout page path. */
-    id?: string | undefined;
+    id: string;
     /** Arbitrary key/value data attached by the merchant at creation, echoed back unchanged. */
     metadata?: Record<string, unknown> | undefined;
     /** Estimated on-chain (gas) cost, deducted from the received amount. Integer string in the asset's smallest unit. */
-    networkFee?: string | undefined;
+    networkFee: string;
     /** The service-fee rate applied to this payment, in basis points (e.g. 40 = 0.4%). */
-    serviceFeeBps?: number | undefined;
-    /** The minimum service-fee floor applied to this payment, as a USD decimal string (e.g. "1"). */
-    serviceFeeMinUsd?: string | undefined;
+    serviceFeeBps: number;
+    /** The minimum service-fee floor applied to this payment, as a USD decimal string (e.g. "0.45" for extended, "0" for basic). */
+    serviceFeeMinUsd: string;
     /** USD price of the asset locked at creation, decimal string. Fees are computed from this price at settlement, so the merchant's net is deterministic. */
-    quotedPrice?: string | undefined;
+    quotedPrice: string;
     /** Who bears the network (gas) fee, echoed from creation. */
-    networkFeePayer?: SuwardSDK.CryptopayFeePayer | undefined;
+    networkFeePayer: SuwardSDK.CryptopayFeePayer;
     /** Who bears the platform (service) fee, echoed from creation. */
-    serviceFeePayer?: SuwardSDK.CryptopayFeePayer | undefined;
+    serviceFeePayer: SuwardSDK.CryptopayFeePayer;
     /** Resolved length of the payment window, in seconds. */
-    paymentWindowSeconds?: number | undefined;
+    paymentWindowSeconds: number;
     /** Identifier of the project that owns this payment. */
-    projectId?: string | undefined;
+    projectId: string;
     /** Return-to-store redirect configuration echoed from creation. Null when none was configured. */
     redirectConfig?: SuwardSDK.CryptopayRedirectConfigDto | undefined;
     /** Main payment lifecycle status. See the status enum for the full meaning of each value. */
-    status?: SuwardSDK.CryptopayPaymentStatusEnum | undefined;
+    status: SuwardSDK.CryptopayPaymentStatusEnum;
     /** Fine-grained payment sub-status describing the current step or amount condition. See the sub-status enum for the full meaning of each value. */
-    subStatus?: SuwardSDK.CryptopayPaymentSubStatusEnum | undefined;
+    subStatus: SuwardSDK.CryptopayPaymentSubStatusEnum;
     /** Preview page of the on-chain transactions detected for this payment (newest first). Use GET /v1/payments/{paymentId}/transactions for the full paginated list. */
-    transactions?: SuwardSDK.CryptopaywireTransactionList | undefined;
+    transactions: SuwardSDK.CryptopaywireTransactionList;
     /** Integer string in the asset's smallest unit. */
     underpaymentTolerance?: string | undefined;
     /** Unix-milliseconds timestamp when the payment was last updated. */
-    updatedAt?: number | undefined;
+    updatedAt: number;
     /** Webhook URL that receives this payment's events, echoed from creation. Null when the project default webhook is used. */
     webhookUrl?: string | undefined;
     /** Absolute URL of the Suward-hosted checkout page where the customer pays this payment. */
-    paymentPageUrl?: string | undefined;
+    paymentPageUrl: string;
 }

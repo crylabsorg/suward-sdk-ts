@@ -4,15 +4,15 @@ import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayAssetResponse {
     /** Asset id-string used everywhere else in the API, e.g. USDT_ARBITRUM. */
-    id?: SuwardSDK.CryptopayAssetId | undefined;
+    id: SuwardSDK.CryptopayAssetId;
     /** Internal blockchain ID (corresponds to GET /v1/blockchains[].id). */
-    blockchainId?: number | undefined;
+    blockchainId: number;
     /** ERC20 contract address; null for native coins (ETH, BNB, POL, XPL). */
     contractAddress?: (string | null) | undefined;
     /** Number of decimal places: smallest-unit amounts are whole tokens * 10^decimals. */
-    decimals?: number | undefined;
+    decimals: number;
     /** Asset group, e.g. USDT, USDC, ETH. */
-    group?: string | undefined;
+    group: string;
     /** Human-readable asset name. */
-    name?: string | undefined;
+    name: string;
 }

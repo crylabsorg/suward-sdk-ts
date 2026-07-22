@@ -6,7 +6,7 @@ export interface CryptopayRedirectConfigDto {
     /** Which payment identifiers to append to the return URL as query parameters. Allowed values: "id" (the Suward payment id) and "externalId" (your identifier). */
     params?: CryptopayRedirectConfigDto.Params.Item[] | undefined;
     /** Base "return to store" URL the customer is sent back to after paying. */
-    url?: string | undefined;
+    url: string;
 }
 
 export namespace CryptopayRedirectConfigDto {

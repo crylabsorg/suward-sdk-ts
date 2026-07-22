@@ -5,18 +5,21 @@ import type * as SuwardSDK from "../../../../index.js";
 /**
  * @example
  *     {
- *         staticWalletId: "staticWalletId"
+ *         staticWalletId: "staticWalletId",
+ *         amount: "amount",
+ *         asset: "USDT_ETHEREUM",
+ *         status: "detected"
  *     }
  */
 export interface CryptopaySimulateStaticDepositRequest {
     /** Static wallet ID */
     staticWalletId: string;
     /** Deposited amount to simulate, an integer string in the asset's smallest unit (see CreatePaymentRequest.amount). */
-    amount?: string;
+    amount: string;
     /** Asset id-string of the simulated deposit (see GET /v1/assets), e.g. USDT_ARBITRUM. */
-    asset?: SuwardSDK.CryptopayAssetId;
+    asset: SuwardSDK.CryptopayAssetId;
     /** Target lifecycle stage to drive the simulated deposit to. */
-    status?: CryptopaySimulateStaticDepositRequest.Status;
+    status: CryptopaySimulateStaticDepositRequest.Status;
     /** Optional index of the transfer within the transaction, as a string-encoded integer. */
     transferIndex?: string;
     /** Optional synthetic transaction hash; a random one is generated when omitted. */

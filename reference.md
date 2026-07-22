@@ -90,7 +90,9 @@ Create a payment request. Returns a unique, single-use deposit address and the a
 <dd>
 
 ```typescript
-await client.payments.createPayment();
+await client.payments.createPayment({
+    amount: "amount"
+});
 
 ```
 </dd>
@@ -350,7 +352,9 @@ Simulate a payment status transition. Available for test-coin assets only.
 
 ```typescript
 await client.payments.simulatePayment({
-    paymentId: "paymentId"
+    paymentId: "paymentId",
+    status: "pending",
+    subStatus: "created"
 });
 
 ```
@@ -999,7 +1003,10 @@ Drive a synthetic deposit through its lifecycle (no on-chain activity, no balanc
 
 ```typescript
 await client.staticWallets.simulateStaticWalletDeposit({
-    staticWalletId: "staticWalletId"
+    staticWalletId: "staticWalletId",
+    amount: "amount",
+    asset: "USDT_ETHEREUM",
+    status: "detected"
 });
 
 ```

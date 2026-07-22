@@ -5,8 +5,8 @@
     "generatorConfig": {
         "namespaceExport": "SuwardSDK"
     },
-    "originGitCommit": "2d6f98bbed1c33f99c1a7515529dba67dab5ced3",
+    "originGitCommit": "3ed3fd88c74defa028455860e0a70bb65fd58cae",
     "originGitCommitIsDirty": false,
     "invokedBy": "manual",
-    "sdkVersion": "0.0.30"
+    "sdkVersion": "0.0.31"
 }

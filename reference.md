@@ -1202,6 +1202,61 @@ await client.assets.listAssetGroups();
 </dl>
 </details>
 
+<details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">listAssetPrices</a>() -> SuwardSDK.GetV1PricesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Returns the current USD price for every asset group, served from cache and refreshed in the background. No authentication required.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.assets.listAssetPrices();
+
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `AssetsClient.RequestOptions` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.assets.<a href="/src/api/resources/assets/client/Client.ts">getWithdrawalConfiguration</a>() -> SuwardSDK.CryptopayWithdrawalConfigResponse</code></summary>
 <dl>
 <dd>

@@ -60,6 +60,18 @@ describe("AssetsClient", () => {
         expect(response).toEqual(rawResponseBody);
     });
 
+    test("listAssetPrices", async () => {
+        const server = mockServerPool.createServer();
+        const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { items: [{ group: "group", priceUsd: "priceUsd", updatedAtUnixMs: 1000000 }] };
+
+        server.mockEndpoint().get("/v1/prices").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.assets.listAssetPrices();
+        expect(response).toEqual(rawResponseBody);
+    });
+
     test("getWithdrawalConfiguration", async () => {
         const server = mockServerPool.createServer();
         const client = new SuwardSDKClient({ maxRetries: 0, apiKey: "test", environment: server.baseUrl });

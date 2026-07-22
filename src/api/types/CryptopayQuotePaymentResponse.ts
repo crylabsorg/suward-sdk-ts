@@ -4,17 +4,19 @@ import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayQuotePaymentResponse {
     /** Asset the quote is denominated in, echoed from the request. */
-    asset?: SuwardSDK.CryptopayAssetId | undefined;
+    asset: SuwardSDK.CryptopayAssetId;
     /** Gross amount, integer string in the asset's smallest unit. */
-    amount?: string | undefined;
-    /** Platform fee: 0.4% of the amount, minimum $1 equivalent. Integer string in the asset's smallest unit. */
-    fee?: string | undefined;
+    amount: string;
+    /** Platform fee, integer string in the asset's smallest unit. For extended compliance: max(0.4% of the amount, $0.45 equivalent); for basic: 0.4% with no floor. */
+    fee: string;
+    /** AML screening depth used for this quote: basic or extended. */
+    complianceLevel?: SuwardSDK.CryptopayComplianceLevel | undefined;
     /** Estimated on-chain (gas) cost, deducted from the received amount. Integer string in the asset's smallest unit. */
-    networkFee?: string | undefined;
+    networkFee: string;
     /** Amount the merchant receives after all fees. Integer string in the asset's smallest unit. */
-    netAmount?: string | undefined;
+    netAmount: string;
     /** Amount the customer pays: base plus any customer-paid fees. Integer string in the asset's smallest unit. */
-    gross?: string | undefined;
+    gross: string;
     /** USD price used for this quote, decimal string. Not locked — the binding price is captured when the payment is created. */
-    quotedPrice?: string | undefined;
+    quotedPrice: string;
 }

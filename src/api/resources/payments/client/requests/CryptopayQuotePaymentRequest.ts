@@ -18,4 +18,6 @@ export interface CryptopayQuotePaymentRequest {
     networkFeePayer?: SuwardSDK.CryptopayFeePayer;
     /** Who bears the platform (service) fee. Default merchant. */
     serviceFeePayer?: SuwardSDK.CryptopayFeePayer;
+    /** AML screening depth to quote: basic (free, no minimum fee) or extended ($0.45 minimum fee). Omit to inherit the project/org default (extended). */
+    complianceLevel?: SuwardSDK.CryptopayComplianceLevel;
 }

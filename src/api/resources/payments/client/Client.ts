@@ -130,17 +130,19 @@ export class PaymentsClient {
      * @throws {@link errors.SuwardSDKTimeoutError}
      *
      * @example
-     *     await client.payments.createPayment()
+     *     await client.payments.createPayment({
+     *         amount: "amount"
+     *     })
      */
     public createPayment(
-        request: SuwardSDK.CryptopayCreatePaymentRequest = {},
+        request: SuwardSDK.CryptopayCreatePaymentRequest,
         requestOptions?: PaymentsClient.RequestOptions,
     ): core.HttpResponsePromise<SuwardSDK.CryptopayPaymentResponse> {
         return core.HttpResponsePromise.fromPromise(this.__createPayment(request, requestOptions));
     }
 
     private async __createPayment(
-        request: SuwardSDK.CryptopayCreatePaymentRequest = {},
+        request: SuwardSDK.CryptopayCreatePaymentRequest,
         requestOptions?: PaymentsClient.RequestOptions,
     ): Promise<core.WithRawResponse<SuwardSDK.CryptopayPaymentResponse>> {
         const _authRequest: core.AuthRequest = await this._options.authProvider.getAuthRequest();
@@ -449,7 +451,9 @@ export class PaymentsClient {
      *
      * @example
      *     await client.payments.simulatePayment({
-     *         paymentId: "paymentId"
+     *         paymentId: "paymentId",
+     *         status: "pending",
+     *         subStatus: "created"
      *     })
      */
     public simulatePayment(

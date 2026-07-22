@@ -615,7 +615,10 @@ export class StaticWalletsClient {
      *
      * @example
      *     await client.staticWallets.simulateStaticWalletDeposit({
-     *         staticWalletId: "staticWalletId"
+     *         staticWalletId: "staticWalletId",
+     *         amount: "amount",
+     *         asset: "USDT_ETHEREUM",
+     *         status: "detected"
      *     })
      */
     public simulateStaticWalletDeposit(

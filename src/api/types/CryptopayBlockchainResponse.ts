@@ -2,15 +2,15 @@
 
 export interface CryptopayBlockchainResponse {
     /** Internal blockchain ID. */
-    id?: number | undefined;
+    id: number;
     /** Network id-string, e.g. ETHEREUM, ARBITRUM (the suffix of an asset id-string). */
-    idString?: string | undefined;
+    idString: string;
     /** EIP-155 chain ID; null for non-EVM chains. */
     evmChainId?: (number | null) | undefined;
     /** Human-readable chain name. */
-    chainName?: string | undefined;
+    chainName: string;
     /** Block confirmations required for a payment to reach finality. */
-    requiredConfirmations?: number | undefined;
+    requiredConfirmations: number;
     /** Flat network-fee estimate in USD (decimal string). */
-    networkFeeUsd?: string | undefined;
+    networkFeeUsd: string;
 }

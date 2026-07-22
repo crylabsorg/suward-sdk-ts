@@ -2,7 +2,7 @@
 
 export interface CryptopayAssetGroupResponse {
     /** Numeric asset-group id. */
-    id?: number | undefined;
+    id: number;
     /** Group symbol, e.g. USDT, USDC, ETH. */
-    name?: string | undefined;
+    name: string;
 }

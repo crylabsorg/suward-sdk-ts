@@ -10,29 +10,29 @@ export interface CryptopayPublicPaymentResponse {
     /** On-chain deposit address the customer must send funds to. Null until the payment is activated and an address is assigned. */
     address?: string | undefined;
     /** Integer string in the asset's smallest unit. */
-    amount?: string | undefined;
+    amount: string;
     /** Integer string in the asset's smallest unit. */
-    amountReceived?: string | undefined;
+    amountReceived: string;
     /** Asset the payment is denominated in, as an asset id-string (see GET /v1/assets). Null until an asset is selected. */
     asset?: SuwardSDK.CryptopayAssetId | undefined;
     /** Unix-milliseconds timestamp when the payment was created. */
-    createdAt?: number | undefined;
+    createdAt: number;
     /** Unix-milliseconds timestamp when the payment window closes; the payment expires if unpaid by then. */
-    expiresAt?: number | undefined;
+    expiresAt: number;
     /** Unique Suward identifier of the payment. */
-    id?: string | undefined;
+    id: string;
     /** Length of the payment window in seconds — how long the payment stays open for funding once activated. */
-    paymentWindowSeconds?: number | undefined;
+    paymentWindowSeconds: number;
     /** Resolved "return to store" redirect (base URL plus the query parameters to append) used to send the customer back after payment. Null when none was configured. */
     redirect?: SuwardSDK.CryptopayPublicRedirect | undefined;
     /** Main payment lifecycle status. See the status enum for the full meaning of each value. */
-    status?: SuwardSDK.CryptopayPaymentStatusEnum | undefined;
+    status: SuwardSDK.CryptopayPaymentStatusEnum;
     /** Fine-grained payment sub-status. See the sub-status enum for the full meaning of each value. */
-    subStatus?: SuwardSDK.CryptopayPaymentSubStatusEnum | undefined;
+    subStatus: SuwardSDK.CryptopayPaymentSubStatusEnum;
     /** Integer string in the asset's smallest unit. */
     underpaymentTolerance?: string | undefined;
     /** Unix-milliseconds timestamp when the payment was last updated. */
-    updatedAt?: number | undefined;
+    updatedAt: number;
     /** Absolute URL of the Suward-hosted checkout page where the customer pays this payment. */
-    paymentPageUrl?: string | undefined;
+    paymentPageUrl: string;
 }

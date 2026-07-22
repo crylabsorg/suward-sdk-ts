@@ -5,7 +5,9 @@ import type * as SuwardSDK from "../../../../index.js";
 /**
  * @example
  *     {
- *         paymentId: "paymentId"
+ *         paymentId: "paymentId",
+ *         status: "pending",
+ *         subStatus: "created"
  *     }
  */
 export interface CryptopaySimulatePaymentRequest {
@@ -14,7 +16,7 @@ export interface CryptopaySimulatePaymentRequest {
     /** Optional simulated received amount, integer string in the asset's smallest unit (see CreatePaymentRequest.amount). */
     amount?: string;
     /** Target main status. Required — status and subStatus are independent axes, both must be supplied. */
-    status?: SuwardSDK.CryptopayPaymentStatusEnum;
+    status: SuwardSDK.CryptopayPaymentStatusEnum;
     /** Target sub-status (amount/detail axis). Required — status and subStatus are independent axes, both must be supplied. */
-    subStatus?: SuwardSDK.CryptopayPaymentSubStatusEnum;
+    subStatus: SuwardSDK.CryptopayPaymentSubStatusEnum;
 }

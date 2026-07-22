@@ -4,7 +4,7 @@ import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayListStaticWalletsResponse {
     /** True when more static wallets exist beyond this page. To fetch the next page, pass the last item's id as the lastId query parameter. */
-    hasMore?: boolean | undefined;
+    hasMore: boolean;
     /** Page of static wallets, ordered per the request's order parameter. */
-    items?: SuwardSDK.CryptopayStaticWalletResponse[] | undefined;
+    items: SuwardSDK.CryptopayStaticWalletResponse[];
 }

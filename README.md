@@ -44,7 +44,9 @@ Instantiate and use the client with the following:
 import { SuwardSDKClient } from "@crylabsorg/suward-sdk";
 
 const client = new SuwardSDKClient({ apiKey: "YOUR_API_KEY" });
-await client.payments.createPayment();
+await client.payments.createPayment({
+    amount: "amount"
+});
 ```
 
 ## Environments

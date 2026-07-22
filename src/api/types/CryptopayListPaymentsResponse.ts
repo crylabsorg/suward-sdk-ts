@@ -4,7 +4,7 @@ import type * as SuwardSDK from "../index.js";
 
 export interface CryptopayListPaymentsResponse {
     /** True when more payments exist beyond this page. To fetch the next page, pass the last item's id as the lastId query parameter. */
-    hasMore?: boolean | undefined;
+    hasMore: boolean;
     /** Page of payments, ordered per the request's order parameter. */
-    items?: SuwardSDK.CryptopayPaymentResponse[] | undefined;
+    items: SuwardSDK.CryptopayPaymentResponse[];
 }

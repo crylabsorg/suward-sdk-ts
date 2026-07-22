@@ -4,19 +4,23 @@ import type * as SuwardSDK from "../../../../index.js";
 
 /**
  * @example
- *     {}
+ *     {
+ *         amount: "amount"
+ *     }
  */
 export interface CryptopayCreatePaymentRequest {
     /** Grace period in seconds before the payment window starts counting, giving the customer time to open the checkout before the timer runs. Optional; range 1 to 3600 (1 hour). */
     activationFlowSeconds?: number;
     /** Merchant base amount, integer string in the asset's smallest unit. When a fee payer is customer the customer is charged more than this (gross); when merchant (default) the fee is deducted from the merchant's proceeds. */
-    amount?: string;
+    amount: string;
     /** Asset the customer will pay in, as an asset id-string (e.g. USDT_ARBITRUM). Required only when the project allows more than one asset; when the project has a single asset it may be omitted. The full set of accepted values is served live at GET /v1/assets. */
     asset?: SuwardSDK.CryptopayAssetId;
     /** Who bears the network (gas) fee. Default merchant. */
     networkFeePayer?: SuwardSDK.CryptopayFeePayer;
     /** Who bears the platform (service) fee. Default merchant. */
     serviceFeePayer?: SuwardSDK.CryptopayFeePayer;
+    /** AML screening depth: basic (free, no minimum fee) or extended ($0.45 minimum fee). Omit to inherit the project/org default (extended). */
+    complianceLevel?: SuwardSDK.CryptopayComplianceLevel;
     /** Your own identifier for this payment. Echoed back on the payment and its webhooks, and can be appended to the return URL as a redirect parameter. Optional. */
     externalId?: string;
     /** Arbitrary JSON key/value data to attach to the payment. Stored and echoed back unchanged on the payment and its webhooks; never sent on-chain. Use it to correlate the payment with your own records. */
